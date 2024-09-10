@@ -15,7 +15,7 @@ export default function EditPost() {
     e.preventDefault();
     axios
       .patch(
-        `http://localhost:8000/posts/${id}`,
+        `https://clone-x-by-farah.glitch.me/posts/${id}`,
         { content },
         {
           headers: {

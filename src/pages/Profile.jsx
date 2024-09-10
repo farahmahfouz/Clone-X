@@ -12,7 +12,7 @@ export default function Porfile() {
 
   // useEffect(() => {
   //   axios
-  //     .get("http://localhost:8000/posts/me", {
+  //     .get("https://clone-x-by-farah.glitch.me/posts/me", {
   //       headers: {
   //         Authorization: `Bearer ${token}`,
   //       },
@@ -33,7 +33,7 @@ export default function Porfile() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/posts/me", {
+      .get("https://clone-x-by-farah.glitch.me/posts/me", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -43,7 +43,7 @@ export default function Porfile() {
         setLoading(false);
         res.data.data.posts.forEach((post) => {
           axios
-            .get(`http://localhost:8000/users/${post.userId}`, {
+            .get(`https://clone-x-by-farah.glitch.me/users/${post.userId}`, {
               headers: {
                 Authorization: `Bearer ${token}`,
               },
@@ -68,7 +68,7 @@ export default function Porfile() {
 
   const deletePost = (id) => {
     axios
-      .delete(`http://localhost:8000/posts/${id}`, {
+      .delete(`https://clone-x-by-farah.glitch.me/posts/${id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

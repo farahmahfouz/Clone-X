@@ -12,7 +12,7 @@ export default function AddPost() {
     e.preventDefault();
     axios
       .post(
-        "http://localhost:8000/posts/me",
+        "https://clone-x-by-farah.glitch.me/posts/me",
         { content },
         {
           headers: {

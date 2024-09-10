@@ -26,7 +26,7 @@ export default function Signup() {
     const errors = validate();
     if (errors) return;
     try {
-      const response = await axios.post('http://localhost:8000/users/signup', formData);
+      const response = await axios.post('https://clone-x-by-farah.glitch.me/users/signup', formData);
       console.log("Response:", response.data);
       navigate('/login');
     } catch (error) {
