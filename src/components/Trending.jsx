@@ -7,9 +7,9 @@ export default function Trending() {
     ];
 
     return (
-        <div className="space-y-4">
+        <div className="space-y-4 fixed top">
        
-                <div className="bg-black m-auto text-white w-10/12 p-4 rounded-2xl shadow-md border border-gray-800">
+                <div className="bg-black m-auto text-white w-10/12 p-4 rounded-2xl shadow-md border border-gray-800 ">
                     <h2 className="text-lg font-bold mb-2">Subscribe to Premium</h2>
                     <p className="text-sm mb-4">Subscribe to unlock new features and if eligible, receive a share of ads revenue.</p>
                     <button className="bg-sky-500 hover:bg-sky-600 text-white py-2 px-4 rounded-full">Subscribe</button>

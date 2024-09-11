@@ -11,7 +11,7 @@ import PremuimIcon from "../icons/PremuimIcon";
 
 export default function Sidebar() {
   return (
-    <div className="md:drawer drawer-open">
+    <div className="md:drawer drawer-open ">
       <input
         id="my-drawer"
         type="checkbox"
@@ -19,12 +19,10 @@ export default function Sidebar() {
         checked
         readOnly
       />
-        {/* <Outlet /> */}
-      {/* <div className="drawer-content">
-      </div> */}
+  
       <div className="drawer-side  h-14 md:h-full">
-        <label htmlFor="my-drawer" className="drawer-overlay"></label>
-        <ul className="menu md:p-4 sm:w-40 md:w-[450px] flex content-center h-full bg-dark text-2xl text-base-200">
+     
+        <ul className="menu fixed top md:p-4 sm:w-40 md:w-[450px] flex content-center h-full bg-dark text-2xl text-base-200">
           <li>
             <Link className="hidden md:flex" to=""><HomeIcone/>Home</Link>
           </li>
