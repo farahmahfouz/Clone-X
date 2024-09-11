@@ -4,11 +4,12 @@ import PropTypes from "prop-types";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [token, setToken] = useState(localStorage.getItem("token")); 
+  const [token, setToken] = useState(localStorage.getItem("token"));
   
-  const login = (token) => {
-    setToken(token);
-    localStorage.setItem("token", token); 
+  
+  const login = (jwtToken) => {
+    setToken(jwtToken);
+    localStorage.setItem("token", jwtToken); 
   };
 
   const logout = () => {
