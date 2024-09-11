@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { AuthContext } from "./../auth/Auth";
+import { Link } from "react-router-dom";
 
 export default function Navbar() {
   const { logout } = useContext(AuthContext);
@@ -11,9 +12,9 @@ export default function Navbar() {
   return (
     <div className="navbar flex sticky top-0 bg-black">
       <div className="flex-1">
-        <a className="btn bg-black border-none hover:bg-transparent">
+        <Link to={"/home"} className="btn bg-black border-none hover:bg-transparent">
           <img className="w-10 h-10" src="logo.jpeg" alt="" />
-        </a>
+        </Link>
       </div>
       <div className="flex-none gap-2">
         <div className="form-control">

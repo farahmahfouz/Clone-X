@@ -21,7 +21,9 @@ export default function Home() {
         },
       })
       .then((res) => {
-        setData(res.data.data.posts);
+        const { posts } = res.data.data;
+        setData(posts);
+        // console.log(posts)
         setLoading(false);
         res.data.data.posts.forEach((post) => {
           axios
@@ -31,7 +33,7 @@ export default function Home() {
               },
             })
             .then((userRes) => {
-              console.log(userRes.data.data);
+              // console.log(userRes.data.data);
               setUserNames((prev) => ({
                 ...prev,
                 [post.userId]: userRes.data.data.user.name,
@@ -53,7 +55,7 @@ export default function Home() {
     axios
       .delete(`https://clone-x-by-farah.glitch.me/posts/${id}`, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${token}`,
         },
       })
       .then(() => {
@@ -64,7 +66,17 @@ export default function Home() {
       });
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading)
+    return (
+      <div className="bg-black h-screen">
+        <div className="flex justify-center text-sky-600">
+        <span className="loading loading-ball loading-xs"></span>
+        <span className="loading loading-ball loading-sm"></span>
+        <span className="loading loading-ball loading-md"></span>
+        <span className="loading loading-ball loading-lg"></span>
+        </div>
+      </div>
+    );
   if (error) return <p>Error: {error.message}</p>;
   return (
     <div className=" w-full">
@@ -92,7 +104,7 @@ export default function Home() {
                 <div className="px-3">
                   <p className="text-sm text-white">{r.content}</p>
                 </div>
-            
+
                 <div className="flex justify-end gap-3 pt-4">
                   <Link
                     to={`/edit-post/${r._id}`}

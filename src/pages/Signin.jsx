@@ -11,7 +11,7 @@ export default function Signup() {
     errors: {},
   });
 
-  const { login } = useContext(AuthContext);
+  const { login, token } = useContext(AuthContext);
 
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
@@ -33,7 +33,7 @@ export default function Signup() {
       });
       console.log(response);
       if (response) {
-        const token = response.data.data.token;
+        // const token = response.data.data.token;
         console.log(token);
         login(token);
         navigate("/home");
