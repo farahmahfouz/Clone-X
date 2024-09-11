@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import { AuthContext } from "../auth/Auth";
+import Trending from "../components/Trending";
 
 export default function Home() {
   const [data, setData] = useState([]);
@@ -123,7 +124,7 @@ export default function Home() {
             ))}
           </div>
         </div>
-        <div className=""></div>
+        <div className=""><Trending/></div>
       </div>
     </div>
   );
