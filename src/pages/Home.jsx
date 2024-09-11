@@ -2,13 +2,16 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
+import { AuthContext } from "../auth/Auth";
 
 export default function Home() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [userNames, setUserNames] = useState({});
-  const token = localStorage.getItem("token");
+  // const token = localStorage.getItem("token");
+  const { token } = useContext(AuthContext);
+
   useContext(token);
   useEffect(() => {
     axios
@@ -65,7 +68,7 @@ export default function Home() {
   if (error) return <p>Error: {error.message}</p>;
   return (
     <div className=" w-full">
-      <div className="grid xs:grid-cols-1 md:grid-cols-3  w-full h-full bg-black">
+      <div className="grid xs:grid-cols-1 md:grid-cols-2 lg:grid-cols-3  w-full h-full bg-black">
         <div className="">
           <Sidebar />
         </div>
@@ -89,7 +92,7 @@ export default function Home() {
                 <div className="px-3">
                   <p className="text-sm text-white">{r.content}</p>
                 </div>
-              
+            
                 <div className="flex justify-end gap-3 pt-4">
                   <Link
                     to={`/edit-post/${r._id}`}

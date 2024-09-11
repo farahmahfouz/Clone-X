@@ -7,7 +7,7 @@ import Home from "./pages/Home";
 import AddPost from "./components/AddPost";
 import ProtectedRoute from "./auth/ProtectedRoute";
 import EditPost from "./components/EditPost";
-import Porfile from "./pages/Profile";
+// import Porfile from "./pages/Profile";
 
 function App() {
   return (
@@ -17,9 +17,9 @@ function App() {
         <Route path="/" element={<Logout />} />
         <Route path="/login" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="home" element={ <ProtectedRoute> <Home /> </ProtectedRoute>}>
-        <Route path="profile" element={<Porfile/>}/>
-        </Route>
+        <Route path="home" element={ <ProtectedRoute> <Home /> </ProtectedRoute>}/>
+        {/* <Route path="profile" element={<Porfile/>}/> */}
+       
         <Route path="/post" element={<AddPost />} />
         <Route path="/edit-post/:id" element={<EditPost />} />
       </Routes>
