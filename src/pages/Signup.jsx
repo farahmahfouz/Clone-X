@@ -73,7 +73,7 @@ export default function Signup() {
             <h5 className="text-4xl font-semibold pt-5">Create account.</h5>
           </div>
 
-          <div className="flex flex-col items-center gap-3 mb-8 w-full md:w-48 lg:w-48">
+          <div className="flex flex-col items-center m-auto gap-3 mb-8 w-full md:w-48 lg:w-48">
             <input onChange={handleChange} value={formData.name} name="name" type="text" placeholder="Name" className="input input-bordered w-full max-w-xs bg-transparent border-white text-sm focus:border-white" />
             {formData.errors.name && <div className="text-red-500 text-[12px]">{formData.errors.name}</div>}
             <input onChange={handleChange} value={formData.email} name="email" type="email" placeholder="Email" className="input input-bordered w-full max-w-xs bg-transparent border-white text-sm focus:border-white" />
@@ -84,8 +84,11 @@ export default function Signup() {
           </div>
 
           <div className="text-center md:text-left lg:text-left">
-            <p className="pb-3">Already have account?<Link to={'/login'} className="text-sky-600 text-sm ps-1">Login</Link> </p>
+            <p className="pb-3 flex justify-center">Already have account?<Link to={'/login'} className="text-sky-600 text-sm ps-1">Login</Link> </p>
+            <div className="flex justify-center">
+
             <button className="btn rounded-full w-full md:w-48 lg:w-48">Next</button>
+            </div>
           </div>
         </div>
       </div>

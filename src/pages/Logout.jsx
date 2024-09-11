@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 export default function Logout() {
   return (
     <div className="bg-black grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 ">
-      <div className="flex justify-center bg-black md:h-screen">
+      <div className="flex justify-center bg-black  md:h-screen">
         <div className=" bg-black items-center justify-center p-10  text-white md:flex-row lg:flex lg:justify-between w-10/12">
           <div>
             <img className="max-w-full" src="logo.jpeg" alt="logo" />

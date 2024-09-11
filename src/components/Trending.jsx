@@ -7,7 +7,7 @@ export default function Trending() {
     ];
 
     return (
-        <div className="space-y-4 fixed top">
+        <div className="space-y-4 fixed mt-20">
        
                 <div className="bg-black m-auto text-white w-10/12 p-4 rounded-2xl shadow-md border border-gray-800 ">
                     <h2 className="text-lg font-bold mb-2">Subscribe to Premium</h2>

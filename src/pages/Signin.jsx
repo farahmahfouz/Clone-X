@@ -88,7 +88,8 @@ export default function Signup() {
               <h5 className="text-4xl font-semibold pt-5">Sign in to X.</h5>
             </div>
 
-            <div className="flex flex-col gap-3 mb-8 w-full md:w-48 lg:w-48">
+            <div className="m-auto w-full md:w-48 lg:w-48">
+              <div className="flex  mb-8 flex-col gap-3 items-center">
               <input
                 onChange={handleChange}
                 value={formData.email}
@@ -110,6 +111,8 @@ export default function Signup() {
                 placeholder="Password"
                 className="input input-bordered w-full max-w-xs bg-transparent border-white focus:border-white"
               />
+
+              </div>
               {formData.errors.password && (
                 <div className="text-red-500 text-[12px]">
                   {formData.errors.password}
@@ -121,16 +124,19 @@ export default function Signup() {
               <div className="text-red-500 mb-4">{errorMessage}</div>
             )}
 
-            <div className="text-center md:text-left lg:text-left">
-              <p className="pb-3">
+            <div className="text-center md:text-left m-auto lg:text-left">
+              <p className="pb-3 flex justify-center">
                 Dont have an account?{" "}
                 <Link to={"/signup"} className="text-sky-600 text-sm ps-1">
                   Sign Up
                 </Link>
               </p>
+              <div className="flex justify-center">
+
               <button className="btn rounded-full w-full md:w-48 lg:w-48">
                 Next
               </button>
+              </div>
             </div>
           </div>
         </div>

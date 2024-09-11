@@ -47,9 +47,9 @@ export default function Navbar() {
                 <span className="badge">New</span>
               </a>
             </li>
-            <li>
+            {/* <li>
               <a>Settings</a>
-            </li>
+            </li> */}
             <li>
               <a onClick={onSubmit}>Logout</a>
             </li>

@@ -20,9 +20,9 @@ export default function Sidebar() {
         readOnly
       />
   
-      <div className="drawer-side  h-14 md:h-full">
+      <div className="drawer-side h-14 md:h-full">
      
-        <ul className="menu fixed top md:p-4 sm:w-40 md:w-[450px] flex content-center h-full bg-dark text-2xl text-base-200">
+        <ul className="menu fixed top  md:p-4 sm:w-40 md:w-[450px] flex content-center h-full bg-dark text-2xl text-base-200">
           <li>
             <Link className="hidden md:flex" to=""><HomeIcone/>Home</Link>
           </li>
