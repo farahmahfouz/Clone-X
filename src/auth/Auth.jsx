@@ -15,13 +15,11 @@ export const AuthProvider = ({ children }) => {
     const checkAuth = async () => {
       try {
         if (token) {
-          console.log("Checking auth with token:", token);
           const userData = await getCurrentUser();
           console.log("User data received:", userData);
           setUser(userData);
           setIsAuthenticated(true);
         } else {
-          console.log("No token found");
           setUser(null);
           setIsAuthenticated(false);
         }

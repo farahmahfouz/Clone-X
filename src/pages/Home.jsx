@@ -1,7 +1,5 @@
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Sidebar from "../components/Sidebar";
-import Trending from "../components/Trending";
 import { AuthContext } from "../auth/Auth";
 import LikeIcon from "../icons/LikeIcon";
 import { getAllPosts, deletePost as deletePostService } from "../utils/postService";
@@ -52,11 +50,7 @@ export default function Home() {
 
   return (
     <div className="w-full">
-      <div className="grid xs:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full h-full bg-black">
-        <div className="">
-          <Sidebar />
-        </div>
-        <div className="h-full border border-gray-800 border-t-0">
+
           <div className="w-11/12 m-auto flex p-3 h-full flex-col">
             {data.map((post) => {
                         return (
@@ -64,7 +58,7 @@ export default function Home() {
                   key={post._id}
                   className="flex border-b border-gray-700 flex-col pb-9"
                 >
-                  <div className="flex p-3 gap-3 items-center">
+                  <div className="flex py-3 gap-3 items-center">
                     <img
                       className="w-[50px] h-[50px] rounded-full object-cover"
                       src={post.userId?.image || 'default.jpg'}
@@ -73,6 +67,10 @@ export default function Home() {
                     <p className="text-md font-semibold text-white">
                       {post.userId?.name || "Unknown User"}
                     </p>
+                    <span className="text-sm font-normal text-white/40">· {new Date(post.createdAt).toLocaleDateString("en-US", {
+                    month: "short",
+                    day: "numeric",
+                  })}</span>
                   </div>
 
                   <div className="px-3">
@@ -118,9 +116,6 @@ export default function Home() {
               );
             })}
           </div>
-        </div>
-        <div className=""><Trending /></div>
-      </div>
     </div>
   );
 }

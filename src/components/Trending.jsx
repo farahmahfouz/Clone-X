@@ -1,8 +1,8 @@
 export default function Trending() {
     const users = [
-        { name: 'Ahmed Hassan El Sharkawy', handle: '@sharkawiaahmed', verified: true, imgSrc: 'https://via.placeholder.com/50' },
-        { name: 'رسائل', handle: '@iMessaage_', verified: true, imgSrc: 'https://via.placeholder.com/50' },
-        { name: 'د. علي القره داغي', handle: '@Ali_AlQaradaghi', verified: true, imgSrc: 'https://via.placeholder.com/50' },
+        { name: 'Ahmed Hassan El Sharkawy', handle: '@sharkawiaahmed', verified: true, imgSrc: 'default.jpg' },
+        { name: 'رسائل', handle: '@iMessaage_', verified: true, imgSrc: 'default.jpg' },
+        { name: 'د. علي القره داغي', handle: '@Ali_AlQaradaghi', verified: true, imgSrc: 'default.jpg' },
     ];
 
     return (

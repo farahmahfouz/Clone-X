@@ -135,7 +135,7 @@ export default function Signup() {
               <p className="pb-3 flex justify-center">
                 Already have account?
 
-                <p className="text-sky-600 text-sm ps-1">Login</p>
+                <span className="text-sky-600 text-sm ps-1">Login</span>
               </p>
               <div className="flex justify-center">
                 <button

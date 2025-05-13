@@ -1,20 +1,25 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+// App.jsx
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Logout from "./pages/Logout";
 import Home from "./pages/Home";
+import Profile from "./pages/Profile";
 import AddPost from "./components/AddPost";
-import ProtectedRoute from "./auth/ProtectedRoute";
 import EditPost from "./components/EditPost";
-// import Porfile from "./pages/Profile";
+import ProtectedRoute from "./auth/ProtectedRoute";
+import MainLayout from "./components/MainLayout";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Logout />} />
-        <Route path="home" element={ <ProtectedRoute> <Home /> </ProtectedRoute>}/>
-        {/* <Route path="profile" element={<Porfile/>}/> */}
-       
-        <Route path="/post" element={<AddPost />} />
+
+        <Route element={<ProtectedRoute><MainLayout /></ProtectedRoute>}>
+          <Route path="/home" element={<Home />} />
+          <Route path="/profile" element={<Profile />} />
+        </Route>
+
+\        <Route path="/post" element={<AddPost />} />
         <Route path="/edit-post/:id" element={<EditPost />} />
       </Routes>
     </BrowserRouter>
