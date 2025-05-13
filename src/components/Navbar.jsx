@@ -1,14 +1,6 @@
-import { useContext } from "react";
-import { AuthContext } from "./../auth/Auth";
 import { Link } from "react-router-dom";
 
 export default function Navbar() {
-  const { logout } = useContext(AuthContext);
-
-  const onSubmit = () => {
-    logout();
-  };
-
   return (
     <div className="navbar flex sticky top-0 bg-black">
       <div className="flex-1">
@@ -50,9 +42,6 @@ export default function Navbar() {
             {/* <li>
               <a>Settings</a>
             </li> */}
-            <li>
-              <a onClick={onSubmit}>Logout</a>
-            </li>
           </ul>
         </div>
       </div>

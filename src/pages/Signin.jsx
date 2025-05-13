@@ -1,18 +1,18 @@
 import { useContext, useState } from "react";
-import axios from "axios";
 import Joi from "joi-browser";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "./../auth/Auth";
+import { login as userLogin } from '../utils/userService'
+import LogoX from "../icons/LogoX";
 
-export default function Signup() {
+export default function Signin() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
     errors: {},
   });
 
-  const { login } = useContext(AuthContext);
-
+  const { loading, error, login } = useContext(AuthContext);
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -23,28 +23,25 @@ export default function Signup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log(formData);
     const errors = validate();
     if (errors) return;
+
     try {
-      const response = await axios.post("https://clone-x-by-farah.glitch.me/users/login", {
+      const response = await userLogin({
         email: formData.email,
         password: formData.password,
       });
-      console.log(response);
-      if (response) {
-        const token = response.data.data.token;
-        console.log(token);
+      const token = response.token || response.data?.token || response.data?.accessToken;
+
+      if (token) {
         login(token);
         navigate("/home");
       } else {
-        setErrorMessage(
-          response.data.message || "Login failed. Please try again."
-        );
+        setErrorMessage("No token received from server.");
       }
     } catch (error) {
       setErrorMessage(
-        error.response ? error.response.data.message : error.message
+        error.response?.data?.message || "Login failed. Please try again."
       );
     }
   };
@@ -61,7 +58,7 @@ export default function Signup() {
     delete state.errors;
     const res = Joi.validate(state, schema, { abortEarly: false });
     if (res.error === null) {
-      setFormData({ errors: {} });
+      setFormData({ ...formData, errors: {} });
       return null;
     }
 
@@ -75,28 +72,26 @@ export default function Signup() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-black h-screen grid grid-cols-1"
+      className="bg-black"
     >
       <div className="flex justify-center">
-        <div className="bg-black items-center justify-center p-10 text-white md:flex-row lg:flex lg:justify-around w-full">
-          <div className="flex justify-center">
-            <img className="max-w-full" src="logo.jpeg" alt="logo" />
-          </div>
+        <LogoX />
+      </div>
+      <h5 className="text-4xl font-semibold py-6 text-center text-white">Sign in to X.</h5>
+      <div className="flex justify-center">
+        <div className="bg-black items-center justify-center text-white">
 
-          <div className="lg:flex lg:flex-col bg-black items-center">
-            <div className="prose lg:prose-xl mb-8 text-center">
-              <h5 className="text-4xl font-semibold pt-5">Sign in to X.</h5>
-            </div>
+          <div className="bg-black items-center">
 
-            <div className="m-auto w-full md:w-48 lg:w-48">
-              <div className="flex  mb-8 flex-col gap-3 items-center">
+            <div className="flex mb-4 flex-col gap-3 items-center">
               <input
                 onChange={handleChange}
                 value={formData.email}
                 name="email"
                 type="email"
                 placeholder="Email"
-                className="input input-bordered w-full max-w-xs bg-transparent border-white focus:border-white"
+                className="input w-80 max-w-xs bg-transparent border-white/30 focus:border-primary"
+                disabled={loading}
               />
               {formData.errors.email && (
                 <div className="text-red-500 text-[12px]">
@@ -109,34 +104,36 @@ export default function Signup() {
                 name="password"
                 type="password"
                 placeholder="Password"
-                className="input input-bordered w-full max-w-xs bg-transparent border-white focus:border-white"
+                className="input w-80 max-w-xs bg-transparent border-white/30 focus:border-primary"
+                disabled={loading}
               />
-
-              </div>
               {formData.errors.password && (
                 <div className="text-red-500 text-[12px]">
                   {formData.errors.password}
                 </div>
               )}
-              <hr className="border-t border-gray-500 w-full" />
+              <hr className="border-t border-white/30 w-80" />
             </div>
-            {errorMessage && (
-              <div className="text-red-500 mb-4">{errorMessage}</div>
+
+            {(errorMessage || error) && (
+              <div className="text-red-500 mb-4 text-center">
+                {errorMessage || error}
+              </div>
             )}
 
-            <div className="text-center md:text-left m-auto lg:text-left">
-              <p className="pb-3 flex justify-center">
-                Dont have an account?{" "}
-                <Link to={"/signup"} className="text-sky-600 text-sm ps-1">
-                  Sign Up
-                </Link>
-              </p>
+            <div className="">
               <div className="flex justify-center">
-
-              <button className="btn rounded-full w-full md:w-48 lg:w-48">
-                Next
-              </button>
+                <button
+                  className="btn w-full md:w-48 lg:w-80 rounded-full border-white/30 text-primary bg-transparent hover:bg-sky-950  font-bold"
+                  onClick={() => document.getElementById('signin_modal').showModal()}
+                >
+                  Sign in
+                </button>
               </div>
+              <p className="text-sm py-2 text-white/70 text-center">
+                Dont have an account?{" "}
+                <span className="text-primary">Sign Up</span>
+              </p>
             </div>
           </div>
         </div>

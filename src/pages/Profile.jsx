@@ -10,27 +10,6 @@ export default function Porfile() {
   const token = localStorage.getItem("token");
   const [userNames, setUserNames] = useState({});
 
-  // useEffect(() => {
-  //   axios
-  //     .get("https://clone-x-by-farah.glitch.me/posts/me", {
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     })
-  //     .then((res) => {
-  //       console.log(res);
-  //       // console.log("Response data:", res.data.data.posts);
-  //       setData(res.data.data.posts);
-  //       setLoading(false);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error fetching posts:", error);
-  //       setError(error);
-  //       setLoading(false);
-  //     });
-  // }, [token]);
-
-
   useEffect(() => {
     axios
       .get("https://clone-x-by-farah.glitch.me/posts/me", {

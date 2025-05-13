@@ -1,3 +1,5 @@
+import { useContext } from "react";
+import { AuthContext } from "../auth/Auth";
 import { Link } from "react-router-dom";
 import HomeIcone from "../icons/HomeIcone";
 import SearchIcon from "../icons/SearchIcon";
@@ -10,6 +12,8 @@ import GrokIcon from "../icons/GrokIcon";
 import PremuimIcon from "../icons/PremuimIcon";
 
 export default function Sidebar() {
+  const { logout } = useContext(AuthContext);
+
   return (
     <div className="md:drawer drawer-open ">
       <input
@@ -22,7 +26,10 @@ export default function Sidebar() {
   
       <div className="drawer-side h-14 md:h-full">
      
-        <ul className="menu fixed top  md:p-4 sm:w-40 md:w-[450px] flex content-center h-full bg-dark text-2xl text-base-200">
+        <ul className="menu fixed top md:p-4 sm:w-40 md:w-[420px] flex content-center h-full bg-dark text-2xl text-base-200">
+          <li>
+            <img src="logo.png" alt="logo" className="w-24 h-15" />
+          </li>
           <li>
             <Link className="hidden md:flex" to=""><HomeIcone/>Home</Link>
           </li>
@@ -57,6 +64,14 @@ export default function Sidebar() {
             >
               Post
             </Link>
+          </li>
+          <li className="md:pt-3">
+            <button
+              onClick={logout}
+              className="btn w-80 md:w-48 lg:w-48 rounded-full border-white text-sky-500 bg-transparent hover:bg-sky-950 font-bold"
+            >
+              Logout
+            </button>
           </li>
         </ul>
       </div>

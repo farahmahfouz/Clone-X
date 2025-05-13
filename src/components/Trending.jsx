@@ -1,4 +1,3 @@
-
 export default function Trending() {
     const users = [
         { name: 'Ahmed Hassan El Sharkawy', handle: '@sharkawiaahmed', verified: true, imgSrc: 'https://via.placeholder.com/50' },
@@ -7,39 +6,46 @@ export default function Trending() {
     ];
 
     return (
-        <div className="space-y-4 fixed mt-20">
-       
-                <div className="bg-black m-auto text-white w-10/12 p-4 rounded-2xl shadow-md border border-gray-800 ">
-                    <h2 className="text-lg font-bold mb-2">Subscribe to Premium</h2>
-                    <p className="text-sm mb-4">Subscribe to unlock new features and if eligible, receive a share of ads revenue.</p>
-                    <button className="bg-sky-500 hover:bg-sky-600 text-white py-2 px-4 rounded-full">Subscribe</button>
-                </div>
-        
-                <div className="bg-black m-auto text-white w-10/12 p-4 rounded-2xl shadow-md border border-gray-800">
-                    <h3 className="text-lg font-bold mb-4">Whats happening</h3>
-                    <ul className="space-y-2">
-                        <li>
-                            <span className="text-gray-400 text-sm">Music · Trending</span>
-                            <p className="font-bold">Namjoon</p>
-                            <p className="text-gray-400 text-sm">506K posts</p>
-                        </li>
-                        <li>
-                            <p className="font-bold">#طيارانت_وين_وصلت</p>
-                            <p className="text-gray-400 text-sm">27.7K posts</p>
-                        </li>
-                        <li>
-                            <p className="font-bold">مظهر شاهين</p>
-                        </li>
-                        <li>
-                            <p className="font-bold">إيمان الطوخي</p>
-                        </li>
-                        <li>
-                            <p className="font-bold">عيد النيروز</p>
-                        </li>
-                    </ul>
-                    <button className="text-sky-500 hover:underline mt-4">Show more</button>
-                </div>
-           
+        <div className="space-y-4 fixed  w-full max-w-sm">
+            <div className="flex justify-center pt-1">
+                <input
+                    type="text"
+                    placeholder="Search"
+                    className="rounded-full bg-transparent text-white placeholder:text-white text-sm px-4 py-3 w-10/12 focus:outline-none focus:ring-2 focus:ring-sky-500 border border-neutral-700"
+                />
+            </div>
+
+            <div className="bg-black m-auto text-white w-10/12 p-4 rounded-2xl shadow-md border border-gray-800 ">
+                <h2 className="text-lg font-bold mb-2">Subscribe to Premium</h2>
+                <p className="text-sm mb-4">Subscribe to unlock new features and if eligible, receive a share of ads revenue.</p>
+                <button className="bg-sky-500 hover:bg-sky-600 text-white py-2 px-4 rounded-full">Subscribe</button>
+            </div>
+
+            <div className="bg-black m-auto text-white w-10/12 p-4 rounded-2xl shadow-md border border-gray-800">
+                <h3 className="text-lg font-bold mb-4">Whats happening</h3>
+                <ul className="space-y-2">
+                    <li>
+                        <span className="text-gray-400 text-sm">Music · Trending</span>
+                        <p className="font-bold">Namjoon</p>
+                        <p className="text-gray-400 text-sm">506K posts</p>
+                    </li>
+                    <li>
+                        <p className="font-bold">#طيارانت_وين_وصلت</p>
+                        <p className="text-gray-400 text-sm">27.7K posts</p>
+                    </li>
+                    <li>
+                        <p className="font-bold">مظهر شاهين</p>
+                    </li>
+                    <li>
+                        <p className="font-bold">إيمان الطوخي</p>
+                    </li>
+                    <li>
+                        <p className="font-bold">عيد النيروز</p>
+                    </li>
+                </ul>
+                <button className="text-sky-500 hover:underline mt-4">Show more</button>
+            </div>
+
             <div className="bg-black text-white  w-10/12 p-4 rounded-2xl shadow-md border border-gray-800 m-auto">
                 <h3 className="text-lg font-bold mb-4">Who to follow</h3>
                 <ul className="space-y-4">

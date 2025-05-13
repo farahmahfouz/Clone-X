@@ -1,36 +1,44 @@
 import { useState } from "react";
 import Joi from 'joi-browser';
-import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
+import { signup } from "../utils/userService";
+import LogoX from "../icons/LogoX";
 
 export default function Signup() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
+    dateOfBirth: "",
     errors: {}
-  })
+  });
 
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
   const schema = {
     name: Joi.string().required().label("Name"),
     email: Joi.string().required().email().label("Email"),
-    password: Joi.string().required().min(8).label("Password")
+    password: Joi.string().required().min(8).label("Password"),
+    dateOfBirth: Joi.date().required().label("Date of Birth")
   };
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
     const errors = validate();
     if (errors) return;
+
     try {
-      const response = await axios.post('https://clone-x-by-farah.glitch.me/users/signup', formData);
-      console.log("Response:", response.data);
+      setLoading(true);
+      await signup(formData);
       navigate('/login');
     } catch (error) {
-      console.error('Error:', error.response ? error.response.data : error.message);
+      setErrorMessage(
+        error.response?.data?.message || "Signup failed. Please try again."
+      );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -45,54 +53,102 @@ export default function Signup() {
     const state = { ...formData };
     delete state.errors;
     const res = Joi.validate(state, schema, { abortEarly: false });
-    console.log(res)
+
     if (res.error === null) {
-      setFormData({errors: {}})
+      setFormData({ ...formData, errors: {} });
       return null;
     }
 
     for (let error of res.error.details) {
       errors[error.path] = error.message;
     }
-    
-    setFormData({...formData, errors });
+
+    setFormData({ ...formData, errors });
     return errors;
   }
 
   return (
-    <form onSubmit={handleSubmit} className="bg-black h-screen grid grid-cols-1">
+    <form onSubmit={handleSubmit} className="bg-black">
       <div className="flex justify-center">
+        <LogoX width={40} height={40} className="fill-white" />
+      </div>
+      <div className="flex justify-center">
+        <div className="bg-black items-center justify-center text-white md:flex-row lg:flex lg:justify-around w-full">
 
-      <div className=" bg-black items-center justify-center p-10 text-white md:flex-row lg:flex lg:justify-around w-full">
-        <div className="flex justify-center">
-          <img className="max-w-full" src="logo.jpeg" alt="logo" />
-        </div>
+          <div className="lg:flex lg:flex-col bg-black items-center">
+            <div className="prose lg:prose-xl mb-8 text-center">
+              <h5 className="text-4xl font-semibold text-start py-4">Create your account.</h5>
+            </div>
 
-        <div className="lg:flex lg:flex-col bg-black items-center">
-          <div className="prose lg:prose-xl mb-8 text-center ">
-            <h5 className="text-4xl font-semibold pt-5">Create account.</h5>
-          </div>
+            <div className="flex flex-col items-center m-auto gap-3 mb-8 w-full md:w-48 lg:w-48">
+              <input
+                onChange={handleChange}
+                value={formData.name}
+                name="name"
+                type="text"
+                placeholder="Name"
+                className="input w-80 max-w-xs bg-transparent border-white/30 text-sm focus:border-primary"
+                disabled={loading}
+              />
+              {formData.errors.name && <div className="text-red-500 text-[12px]">{formData.errors.name}</div>}
 
-          <div className="flex flex-col items-center m-auto gap-3 mb-8 w-full md:w-48 lg:w-48">
-            <input onChange={handleChange} value={formData.name} name="name" type="text" placeholder="Name" className="input input-bordered w-full max-w-xs bg-transparent border-white text-sm focus:border-white" />
-            {formData.errors.name && <div className="text-red-500 text-[12px]">{formData.errors.name}</div>}
-            <input onChange={handleChange} value={formData.email} name="email" type="email" placeholder="Email" className="input input-bordered w-full max-w-xs bg-transparent border-white text-sm focus:border-white" />
-            {formData.errors.email && <div className="text-red-500 text-[12px]">{formData.errors.email}</div>}
-            <input onChange={handleChange} value={formData.password} name="password" type="password" placeholder="Password" className="input input-bordered w-full max-w-xs bg-transparent border-white  focus:border-white" />
-            {formData.errors.password && <div className="text-red-500 text-[12px]">{formData.errors.password}</div>}
-            <hr className="border-t border-gray-500 w-full" />
-          </div>
+              <input
+                onChange={handleChange}
+                value={formData.email}
+                name="email"
+                type="email"
+                placeholder="Email"
+                className="input w-80 max-w-xs bg-transparent border-white/30 text-sm focus:border-primary"
+                disabled={loading}
+              />
+              {formData.errors.email && <div className="text-red-500 text-[12px]">{formData.errors.email}</div>}
 
-          <div className="text-center md:text-left lg:text-left">
-            <p className="pb-3 flex justify-center">Already have account?<Link to={'/login'} className="text-sky-600 text-sm ps-1">Login</Link> </p>
-            <div className="flex justify-center">
+              <input
+                onChange={handleChange}
+                value={formData.password}
+                name="password"
+                type="password"
+                placeholder="Password"
+                className="input w-80 max-w-xs bg-transparent border-white/30 focus:border-primary"
+                disabled={loading}
+              />
+              {formData.errors.password && <div className="text-red-500 text-[12px]">{formData.errors.password}</div>}
 
-            <button className="btn rounded-full w-full md:w-48 lg:w-48">Next</button>
+              <input
+                onChange={handleChange}
+                value={formData.dateOfBirth}
+                name="dateOfBirth"
+                type="date"
+                className="input w-80 max-w-xs bg-transparent border-white/30 focus:border-primary"
+                disabled={loading}
+              />
+              {formData.errors.dateOfBirth && <div className="text-red-500 text-[12px]">{formData.errors.dateOfBirth}</div>}
+
+              <hr className="border-t border-white/30 w-80" />
+            </div>
+
+            {errorMessage && (
+              <div className="text-red-500 mb-4 text-center">{errorMessage}</div>
+            )}
+
+            <div className="text-center md:text-left lg:text-left">
+              <p className="pb-3 flex justify-center">
+                Already have account?
+
+                <p className="text-sky-600 text-sm ps-1">Login</p>
+              </p>
+              <div className="flex justify-center">
+                <button
+                  className="btn rounded-full w-full md:w-48 lg:w-80"
+                  disabled={loading}
+                >
+                  {loading ? "Loading..." : "Next"}
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      </div>
     </form>
-  )
+  );
 }
