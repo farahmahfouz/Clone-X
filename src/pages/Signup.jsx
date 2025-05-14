@@ -1,6 +1,5 @@
 import { useState } from "react";
 import Joi from 'joi-browser';
-import { useNavigate } from "react-router-dom";
 import { signup } from "../utils/userService";
 import LogoX from "../icons/LogoX";
 
@@ -15,7 +14,6 @@ export default function Signup() {
 
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const navigate = useNavigate();
 
   const schema = {
     name: Joi.string().required().label("Name"),
@@ -32,7 +30,7 @@ export default function Signup() {
     try {
       setLoading(true);
       await signup(formData);
-      navigate('/login');
+      document.getElementById('signin_modal').showModal();
     } catch (error) {
       setErrorMessage(
         error.response?.data?.message || "Signup failed. Please try again."
