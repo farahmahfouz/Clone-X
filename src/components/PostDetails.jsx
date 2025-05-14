@@ -14,7 +14,7 @@ export default function PostDetails() {
     const fetchPostDetails = async () => {
       try {
         const postData = await getPostById(id);
-        setPost(postData);
+        setPost(postData.post);
       } catch (error) {
         console.error("Error fetching post details:", error);
         setError(error.message);
@@ -32,8 +32,6 @@ export default function PostDetails() {
         <span className="loading loading-spinner loading-xl text-primary"></span>
       </div>
     );
-
-
 
   if (error) {
     return (

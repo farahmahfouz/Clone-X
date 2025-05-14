@@ -9,7 +9,8 @@ export const getAllPosts = async () => {
 // Get a single post by ID with likes and user details
 export const getPostById = async (id) => {
   const response = await axiosInstance.get(`/posts/${id}`);
-  return response.data.data.post;
+  console.log(response)
+  return response.data.data;
 };
 
 // Get current user's posts
