@@ -2,6 +2,7 @@ import { createContext, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { getCurrentUser } from "../utils/userService";
 import Cookies from "js-cookie";
+import LogoX from '../icons/LogoX';
 
 export const AuthContext = createContext();
 
@@ -16,7 +17,7 @@ export const AuthProvider = ({ children }) => {
       try {
         if (token) {
           const userData = await getCurrentUser();
-          console.log("User data received:", userData);
+          // console.log("User data received:", userData);
           setUser(userData);
           setIsAuthenticated(true);
         } else {
@@ -51,7 +52,9 @@ export const AuthProvider = ({ children }) => {
   };
 
   if (loading) {
-    return <div>Loading...</div>; // يمكنك إضافة loading component هنا
+    return <div className="bg-black min-h-screen flex justify-center items-center">
+      <LogoX width={300} height={300}/>
+    </div>;
   }
 
   return (

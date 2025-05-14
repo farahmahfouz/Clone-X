@@ -18,7 +18,6 @@ export default function AddPost() {
       setError("Please login first");
       return;
     }
-
     try {
       setLoading(true);
       setError(null);

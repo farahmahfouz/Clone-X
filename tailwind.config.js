@@ -8,7 +8,8 @@ export default {
         helvetica: ['"Helvetica Neue"', 'Helvetica', 'Arial', 'sans-serif'],
       },
       colors: {
-        primary: 'rgb(29 155 240)'
+        primary: 'rgb(29 155 240)',
+        secondry: 'text-white/40'
       }
     },
   },

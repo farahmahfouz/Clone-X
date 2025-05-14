@@ -6,7 +6,6 @@ export default function UserMenu() {
     const [open, setOpen] = useState(false);
     const menuRef = useRef(null);
 
-
     useEffect(() => {
         function handleClickOutside(event) {
             if (menuRef.current && !menuRef.current.contains(event.target)) {
@@ -24,7 +23,7 @@ export default function UserMenu() {
             <div>
                 
             <img
-                src={user?.image || "https://ui-avatars.com/api/?name=" + (user?.email || "U")}
+                src={user?.image || '/default.jpg' + (user?.email || "U")}
                 alt="avatar"
                 className="w-10 h-10 rounded-full object-cover border border-gray-700"
                 />

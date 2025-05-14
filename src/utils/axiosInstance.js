@@ -5,6 +5,7 @@ const BASE_URL = "https://clone-x-by-farah.glitch.me";
 // const LOCAL_URL = "http://localhost:8000";
 
 const axiosInstance = axios.create({
+  // baseURL: LOCAL_URL,
   baseURL: BASE_URL,
   withCredentials: true, // Important for handling cookies
 });

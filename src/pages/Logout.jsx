@@ -5,15 +5,15 @@ import Signin from "./Signin";
 
 export default function Logout() {
   return (
-    <div className="bg-black grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 ">
-      <div className="flex justify-center bg-black  md:h-screen">
-        <div className=" bg-black items-center justify-center p-10  text-white md:flex-row lg:flex lg:justify-between w-10/12">
+    <div className="grid grid-cols-1">
+      <div className="flex justify-center">
+        <div className="items-center justify-center pt-20 text-white md:justify-center lg:flex lg:justify-between w-10/12">
           <div>
             <LogoX width={370} height={370} />
           </div>
 
-          <div className="lg:flex lg:flex-col bg-black ">
-            <div className="prose lg:prose-xl mb-8 text-center ">
+          <div className="lg:flex lg:flex-col">
+            <div className="mb-8 text-center">
               <h1 className="text-7xl font-extrabold font-helvetica">Happening now</h1>
               <h5 className="text-4xl font-semibold pt-12 font-helvetica text-start">Join today.</h5>
             </div>

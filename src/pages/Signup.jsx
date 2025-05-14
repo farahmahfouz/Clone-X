@@ -68,14 +68,14 @@ export default function Signup() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="bg-black">
+    <form onSubmit={handleSubmit}>
       <div className="flex justify-center">
         <LogoX width={40} height={40} className="fill-white" />
       </div>
       <div className="flex justify-center">
-        <div className="bg-black items-center justify-center text-white md:flex-row lg:flex lg:justify-around w-full">
+        <div className=" items-center justify-center text-white md:flex-row lg:flex lg:justify-around w-full">
 
-          <div className="lg:flex lg:flex-col bg-black items-center">
+          <div className="lg:flex lg:flex-col  items-center">
             <div className="prose lg:prose-xl mb-8 text-center">
               <h5 className="text-4xl font-semibold text-start py-4">Create your account.</h5>
             </div>

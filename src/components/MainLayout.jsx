@@ -5,7 +5,7 @@ import { Outlet } from "react-router-dom";
 export default function MainLayout() {
     return (
         <div className="w-full">
-            <div className="grid xs:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full h-full bg-black">
+            <div className="grid xs:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full h-full">
                 <div>
                     <Sidebar />
                 </div>

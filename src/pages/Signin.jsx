@@ -72,16 +72,15 @@ export default function Signin() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-black"
     >
       <div className="flex justify-center">
         <LogoX />
       </div>
       <h5 className="text-4xl font-semibold py-6 text-center text-white">Sign in to X.</h5>
       <div className="flex justify-center">
-        <div className="bg-black items-center justify-center text-white">
+        <div className="items-center justify-center text-white">
 
-          <div className="bg-black items-center">
+          <div className="items-center">
 
             <div className="flex mb-4 flex-col gap-3 items-center">
               <input
@@ -124,10 +123,18 @@ export default function Signin() {
             <div className="">
               <div className="flex justify-center">
                 <button
-                  className="btn w-full md:w-48 lg:w-80 rounded-full border-white/30 text-primary bg-transparent hover:bg-sky-950  font-bold"
+                  className="btn w-full md:w-48 lg:w-80 rounded-full border-white/30 text-primary bg-transparent hover:bg-sky-950 font-bold"
                   onClick={() => document.getElementById('signin_modal').showModal()}
+                  disabled={loading}
                 >
-                  Sign in
+                  {loading ? (
+                    <span className="flex items-center gap-2">
+                      <span className="loading loading-spinner loading-sm"></span>
+                      Signing in...
+                    </span>
+                  ) : (
+                    "Sign in"
+                  )}
                 </button>
               </div>
               <p className="text-sm py-2 text-white/70 text-center">
