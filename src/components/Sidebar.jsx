@@ -30,28 +30,28 @@ export default function Sidebar() {
             <Link className="hidden md:flex focus:font-bold focus:text-white active:rounded-3xl hover:bg-zinc-900 rounded-3xl " to="/home"><HomeIcone />Home</Link>
           </li>
           <li>
-            <Link className="hidden md:flex focus:font-bold focus:text-white active:rounded-3xl hover:bg-zinc-900 rounded-3xl " to=""><SearchIcon />Explore</Link>
+            <Link className="hidden md:flex focus:font-bold focus:text-white active:rounded-3xl hover:bg-zinc-900 rounded-3xl "><SearchIcon />Explore</Link>
           </li>
           <li>
-            <Link className="hidden md:flex focus:font-bold focus:text-white active:rounded-3xl hover:bg-zinc-900 rounded-3xl " to=""><NotifiIcon />Notifications</Link>
+            <Link className="hidden md:flex focus:font-bold focus:text-white active:rounded-3xl hover:bg-zinc-900 rounded-3xl "><NotifiIcon />Notifications</Link>
           </li>
           <li>
-            <Link className="hidden md:flex focus:font-bold focus:text-white active:rounded-3xl hover:bg-zinc-900 rounded-3xl " to=""><MsgIcon />Messsages</Link>
+            <Link className="hidden md:flex focus:font-bold focus:text-white active:rounded-3xl hover:bg-zinc-900 rounded-3xl "><MsgIcon />Messsages</Link>
           </li>
           <li>
-            <Link className="hidden md:flex focus:font-bold focus:text-white active:rounded-3xl hover:bg-zinc-900 rounded-3xl " to=""><GrokIcon /> Grok</Link>
+            <Link className="hidden md:flex focus:font-bold focus:text-white active:rounded-3xl hover:bg-zinc-900 rounded-3xl "><GrokIcon /> Grok</Link>
           </li>
           <li>
-            <Link className="hidden md:flex focus:font-bold focus:text-white active:rounded-3xl hover:bg-zinc-900 rounded-3xl " to=""><CommIcon /> Communities</Link>
+            <Link className="hidden md:flex focus:font-bold focus:text-white active:rounded-3xl hover:bg-zinc-900 rounded-3xl "><CommIcon /> Communities</Link>
           </li>
           <li>
-            <Link className="hidden md:flex focus:font-bold focus:text-white active:rounded-3xl hover:bg-zinc-900 rounded-3xl " to=""><PremuimIcon /> Premuim</Link>
+            <Link className="hidden md:flex focus:font-bold focus:text-white active:rounded-3xl hover:bg-zinc-900 rounded-3xl "><PremuimIcon /> Premuim</Link>
           </li>
           <li>
             <Link className="hidden md:flex focus:font-bold focus:text-white active:rounded-3xl hover:bg-zinc-900 rounded-3xl " to="/profile"><ProfileIcon /> Profile</Link>
           </li>
           <li>
-            <Link className="hidden md:flex focus:font-bold focus:text-white active:rounded-3xl hover:bg-zinc-900 rounded-3xl " to=""> <MoreIcon /> More</Link>
+            <Link className="hidden md:flex focus:font-bold focus:text-white active:rounded-3xl hover:bg-zinc-900 rounded-3xl "> <MoreIcon /> More</Link>
           </li>
           <li className="md:pt-3">
             <Link

@@ -35,7 +35,9 @@ export default function Signin() {
 
       if (token) {
         login(token);
-        navigate("/home");
+        navigate("/home", {
+          replace: true
+        });
       } else {
         setErrorMessage("No token received from server.");
       }
