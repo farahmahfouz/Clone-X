@@ -9,7 +9,6 @@ export const getAllPosts = async () => {
 // Get a single post by ID with likes and user details
 export const getPostById = async (id) => {
   const response = await axiosInstance.get(`/posts/${id}`);
-  console.log(response)
   return response.data.data;
 };
 
@@ -28,7 +27,7 @@ export const createPost = async (postData) => {
 // Update a post
 export const updatePost = async (id, postData) => {
   const response = await axiosInstance.patch(`/posts/${id}`, postData);
-  return response.data.data.post;
+  return response.data.data.updatePost;
 };
 
 // Delete a post

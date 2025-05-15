@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import HomeIcone from "../icons/HomeIcone";
 import SearchIcon from "../icons/SearchIcon";
 import NotifiIcon from "../icons/NotifiIcon";
@@ -9,8 +10,15 @@ import ProfileIcon from "../icons/ProfileIcon";
 import GrokIcon from "../icons/GrokIcon";
 import PremuimIcon from "../icons/PremuimIcon";
 import UserMenu from "./UserMenu";
+import AddPost from "./AddPost";
 
 export default function Sidebar() {
+  const [showAddPost, setShowAddPost] = useState(false);
+
+  const handleAddPostSuccess = () => {
+    // You can add any refresh logic here if needed
+  };
+
   return (
     <div className="drawer-open md:drawer">
       <input
@@ -21,7 +29,7 @@ export default function Sidebar() {
         readOnly
       />
 
-      <div className=" h-14 md:h-full">
+      <div className="h-14 md:h-full">
         <ul className="menu fixed top md:p-4 sm:w-40 md:w-[420px] flex content-center h-full text-2xl text-base-200">
           <li>
             <img src="/logo.png" alt="logo" className="w-24 h-15" />
@@ -54,18 +62,25 @@ export default function Sidebar() {
             <Link className="hidden md:flex focus:font-bold focus:text-white active:rounded-3xl hover:bg-zinc-900 rounded-3xl "> <MoreIcon /> More</Link>
           </li>
           <li className="md:pt-3">
-            <Link
-              to="/post"
-              className="btn w-80  md:w-48 lg:w-64 rounded-full border-none text-white bg-primary hover:bg-sky-600 font-bold"
+            <button
+              onClick={() => setShowAddPost(true)}
+              className="btn w-80 md:w-48 lg:w-64 rounded-full border-none text-white bg-primary hover:bg-sky-600 font-bold"
             >
               Post
-            </Link>
+            </button>
           </li>
           <li className="md:pt-2">
             <UserMenu />
           </li>
         </ul>
       </div>
+
+      {showAddPost && (
+        <AddPost
+          onClose={() => setShowAddPost(false)}
+          onSuccess={handleAddPostSuccess}
+        />
+      )}
     </div>
   );
 }
