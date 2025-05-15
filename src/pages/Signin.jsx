@@ -1,89 +1,94 @@
 import { useContext, useState } from "react";
-import Joi from "joi-browser";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "./../auth/Auth";
-import { login as userLogin } from '../utils/userService'
+import { login as userLogin } from '../utils/userService';
 import LogoX from "../icons/LogoX";
 
 export default function Signin() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-    errors: {},
   });
-
+  const [errors, setErrors] = useState({});
+  
   const { loading, error, login } = useContext(AuthContext);
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
 
-  const schema = {
-    email: Joi.string().required().email().label("Email"),
-    password: Joi.string().required().min(8).label("Password"),
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email) ? "" : "Invalid email format";
+  };
+
+  const validatePassword = (password) => {
+    if (!password) return "Password is required";
+    if (password.length < 8) return "Password must be at least 8 characters long";
+    if (password.length > 16) return "Password must be at most 16 characters long";
+    
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,20}$/;
+    return passwordRegex.test(password) 
+      ? "" 
+      : "Password must contain at least one uppercase letter, one lowercase letter, one number";
+  };
+
+  const validate = () => {
+    const newErrors = {};
+    
+    const emailError = validateEmail(formData.email);
+    if (emailError) newErrors.email = emailError;
+    
+    const passwordError = validatePassword(formData.password);
+    if (passwordError) newErrors.password = passwordError;
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const errors = validate();
-    if (errors) return;
+    setErrorMessage("");
+    
+    const isValid = validate();
+    if (!isValid) return;
 
     try {
       const response = await userLogin({
         email: formData.email,
         password: formData.password,
       });
-      const token = response.token || response.data?.token || response.data?.accessToken;
+      
+      const token = response?.token || response?.data?.token || response?.data?.accessToken;
 
       if (token) {
         login(token);
-        navigate("/home", {
-          replace: true
-        });
+        navigate("/home", { replace: true });
       } else {
         setErrorMessage("No token received from server.");
       }
-    } catch (error) {
+    } catch (err) {
       setErrorMessage(
-        error.response?.data?.message || "Login failed. Please try again."
+        err.response?.data?.message || "Login failed. Please try again."
       );
     }
   };
 
   const handleChange = (e) => {
-    let state = { ...formData };
-    state[e.target.name] = e.target.value;
-    setFormData(state);
-  };
-
-  const validate = () => {
-    const errors = {};
-    const state = { ...formData };
-    delete state.errors;
-    const res = Joi.validate(state, schema, { abortEarly: false });
-    if (res.error === null) {
-      setFormData({ ...formData, errors: {} });
-      return null;
-    }
-
-    for (let error of res.error.details) {
-      errors[error.path] = error.message;
-    }
-    setFormData((prevState) => ({ ...prevState, errors }));
-    return errors;
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-    >
+    <form onSubmit={handleSubmit}>
       <div className="flex justify-center">
         <LogoX />
       </div>
       <h5 className="text-4xl font-semibold py-6 text-center text-white">Sign in to X.</h5>
       <div className="flex justify-center">
         <div className="items-center justify-center text-white">
-
           <div className="items-center">
-
             <div className="flex mb-4 flex-col gap-3 items-center">
               <input
                 onChange={handleChange}
@@ -94,9 +99,9 @@ export default function Signin() {
                 className="input w-80 max-w-xs bg-transparent border-white/30 focus:border-primary"
                 disabled={loading}
               />
-              {formData.errors.email && (
+              {errors.email && (
                 <div className="text-red-500 text-[12px]">
-                  {formData.errors.email}
+                  {errors.email}
                 </div>
               )}
               <input
@@ -108,9 +113,9 @@ export default function Signin() {
                 className="input w-80 max-w-xs bg-transparent border-white/30 focus:border-primary"
                 disabled={loading}
               />
-              {formData.errors.password && (
+              {errors.password && (
                 <div className="text-red-500 text-[12px]">
-                  {formData.errors.password}
+                  {errors.password}
                 </div>
               )}
               <hr className="border-t border-white/30 w-80" />
@@ -122,11 +127,11 @@ export default function Signin() {
               </div>
             )}
 
-            <div className="">
+            <div>
               <div className="flex justify-center">
                 <button
+                  type="submit"
                   className="btn w-full md:w-48 lg:w-80 rounded-full border-white/30 text-primary bg-transparent hover:bg-sky-950 font-bold"
-                  onClick={() => document.getElementById('signin_modal').showModal()}
                   disabled={loading}
                 >
                   {loading ? (

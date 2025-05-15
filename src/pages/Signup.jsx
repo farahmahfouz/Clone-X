@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Joi from 'joi-browser';
 import { signup } from "../utils/userService";
 import LogoX from "../icons/LogoX";
 
@@ -8,24 +7,64 @@ export default function Signup() {
     name: "",
     email: "",
     password: "",
-    dateOfBirth: "",
-    errors: {}
+    dateOfBirth: ""
   });
-
+  const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const schema = {
-    name: Joi.string().required().label("Name"),
-    email: Joi.string().required().email().label("Email"),
-    password: Joi.string().required().min(8).label("Password"),
-    dateOfBirth: Joi.date().required().label("Date of Birth")
+  const validateName = (name) => {
+    return name ? "" : "Name is required";
+  };
+
+  const validateEmail = (email) => {
+    if (!email) return "Email is required";
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email) ? "" : "Invalid email format";
+  };
+
+  const validatePassword = (password) => {
+    if (!password) return "Password is required";
+    if (password.length < 8) return "Password must be at least 8 characters long";
+    return "";
+  };
+
+  const validateDateOfBirth = (date) => {
+    if (!date) return "Date of Birth is required";
+    const selectedDate = new Date(date);
+    const today = new Date();
+    
+    if (isNaN(selectedDate.getTime())) return "Invalid date";
+    if (selectedDate > today) return "Date of Birth cannot be in the future";
+    
+    return "";
+  };
+
+  const validate = () => {
+    const newErrors = {};
+    
+    const nameError = validateName(formData.name);
+    if (nameError) newErrors.name = nameError;
+    
+    const emailError = validateEmail(formData.email);
+    if (emailError) newErrors.email = emailError;
+    
+    const passwordError = validatePassword(formData.password);
+    if (passwordError) newErrors.password = passwordError;
+    
+    const dateOfBirthError = validateDateOfBirth(formData.dateOfBirth);
+    if (dateOfBirthError) newErrors.dateOfBirth = dateOfBirthError;
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const errors = validate();
-    if (errors) return;
+    setErrorMessage("");
+    
+    const isValid = validate();
+    if (!isValid) return;
 
     try {
       setLoading(true);
@@ -40,30 +79,13 @@ export default function Signup() {
     }
   };
 
-  const handleChange = e => {
-    let state = { ...formData };
-    state[e.target.name] = e.target.value;
-    setFormData(state);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
   };
-
-  const validate = () => {
-    const errors = {};
-    const state = { ...formData };
-    delete state.errors;
-    const res = Joi.validate(state, schema, { abortEarly: false });
-
-    if (res.error === null) {
-      setFormData({ ...formData, errors: {} });
-      return null;
-    }
-
-    for (let error of res.error.details) {
-      errors[error.path] = error.message;
-    }
-
-    setFormData({ ...formData, errors });
-    return errors;
-  }
 
   return (
     <form onSubmit={handleSubmit}>
@@ -71,9 +93,9 @@ export default function Signup() {
         <LogoX width={40} height={40} className="fill-white" />
       </div>
       <div className="flex justify-center">
-        <div className=" items-center justify-center text-white md:flex-row lg:flex lg:justify-around w-full">
+        <div className="items-center justify-center text-white md:flex-row lg:flex lg:justify-around w-full">
 
-          <div className="lg:flex lg:flex-col  items-center">
+          <div className="lg:flex lg:flex-col items-center">
             <div className="prose lg:prose-xl mb-8 text-center">
               <h5 className="text-4xl font-semibold text-start py-4">Create your account.</h5>
             </div>
@@ -88,7 +110,7 @@ export default function Signup() {
                 className="input w-80 max-w-xs bg-transparent border-white/30 text-sm focus:border-primary"
                 disabled={loading}
               />
-              {formData.errors.name && <div className="text-red-500 text-[12px]">{formData.errors.name}</div>}
+              {errors.name && <div className="text-red-500 text-[12px]">{errors.name}</div>}
 
               <input
                 onChange={handleChange}
@@ -99,7 +121,7 @@ export default function Signup() {
                 className="input w-80 max-w-xs bg-transparent border-white/30 text-sm focus:border-primary"
                 disabled={loading}
               />
-              {formData.errors.email && <div className="text-red-500 text-[12px]">{formData.errors.email}</div>}
+              {errors.email && <div className="text-red-500 text-[12px]">{errors.email}</div>}
 
               <input
                 onChange={handleChange}
@@ -110,7 +132,7 @@ export default function Signup() {
                 className="input w-80 max-w-xs bg-transparent border-white/30 focus:border-primary"
                 disabled={loading}
               />
-              {formData.errors.password && <div className="text-red-500 text-[12px]">{formData.errors.password}</div>}
+              {errors.password && <div className="text-red-500 text-[12px]">{errors.password}</div>}
 
               <input
                 onChange={handleChange}
@@ -120,7 +142,7 @@ export default function Signup() {
                 className="input w-80 max-w-xs bg-transparent border-white/30 focus:border-primary"
                 disabled={loading}
               />
-              {formData.errors.dateOfBirth && <div className="text-red-500 text-[12px]">{formData.errors.dateOfBirth}</div>}
+              {errors.dateOfBirth && <div className="text-red-500 text-[12px]">{errors.dateOfBirth}</div>}
 
               <hr className="border-t border-white/30 w-80" />
             </div>
