@@ -14,10 +14,20 @@ export default function Signup() {
   const [errorMessage, setErrorMessage] = useState("");
 
   const validateName = (name) => {
-    return name ? "" : "Name is required";
+    if (!name) {
+    return "Name is required";
+  }
+  if (name.length < 10) {
+    return "Name must be at least 10 characters";
+  }
+  if (name.length > 15) {
+    return "Name must be at most 15 characters";
+  }
+  return ""; 
   };
 
   const validateEmail = (email) => {
+    if(email) return 'Email is already used!';
     if (!email) return "Email is required";
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email) ? "" : "Invalid email format";
@@ -25,7 +35,7 @@ export default function Signup() {
 
   const validatePassword = (password) => {
     if (!password) return "Password is required";
-    if (password.length < 8) return "Password must be at least 8 characters long";
+    if (password.length < 8) return "Pass must be at least 8 characters";
     return "";
   };
 
@@ -110,7 +120,7 @@ export default function Signup() {
                 className="input w-80 max-w-xs bg-transparent border-white/30 text-sm focus:border-primary"
                 disabled={loading}
               />
-              {errors.name && <div className="text-red-500 text-[12px]">{errors.name}</div>}
+              {errors.name && <div className="text-red-500 text-[11px] w-full">{errors.name}</div>}
 
               <input
                 onChange={handleChange}
