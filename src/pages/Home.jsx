@@ -56,19 +56,19 @@ export default function Home() {
     try {
       const post = data.find(p => p._id === postId);
       if (post.isLiked) {
-        await unlikePost(postId);
         setData(prevData => prevData.map(p =>
           p._id === postId
             ? { ...p, isLiked: false, likesCount: p.likesCount - 1 }
             : p
         ));
+        await unlikePost(postId);
       } else {
-        await likePost(postId);
         setData(prevData => prevData.map(p =>
           p._id === postId
             ? { ...p, isLiked: true, likesCount: p.likesCount + 1 }
             : p
         ));
+        await likePost(postId);
       }
     } catch (error) {
       console.error("Error handling like:", error);
