@@ -38,13 +38,13 @@ export const deletePost = async (id) => {
 
 // Like a post
 export const likePost = async (postId) => {
-  const response = await axiosInstance.post(`/posts/${postId}/like`);
+  const response = await axiosInstance.post(`/posts/${postId}/likes`);
   return response.data;
 };
 
 // Unlike a post
 export const unlikePost = async (postId) => {
-  const response = await axiosInstance.delete(`/posts/${postId}/like`);
+  const response = await axiosInstance.delete(`/posts/${postId}/likes`);
   return response.data;
 };
 

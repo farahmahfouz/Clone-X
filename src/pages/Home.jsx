@@ -2,7 +2,8 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../auth/Auth";
 import LikeIcon from "../icons/LikeIcon";
-import { getAllPosts, deletePost as deletePostService } from "../utils/postService";
+import FilledLikeIcon from "../icons/FilledLikeIcon";
+import { getAllPosts, deletePost as deletePostService, likePost, unlikePost } from "../utils/postService";
 import PostComponent from "../components/PostComponent";
 import EditPost from "../components/EditPost";
 
@@ -47,7 +48,33 @@ export default function Home() {
   const handleEditPost = (postId) => {
     setEditingPostId(postId);
   };
-  
+
+  const handleLike = async (e, postId) => {
+    e.stopPropagation();
+    if (!isAuthenticated) return;
+
+    try {
+      const post = data.find(p => p._id === postId);
+      if (post.isLiked) {
+        await unlikePost(postId);
+        setData(prevData => prevData.map(p =>
+          p._id === postId
+            ? { ...p, isLiked: false, likesCount: p.likesCount - 1 }
+            : p
+        ));
+      } else {
+        await likePost(postId);
+        setData(prevData => prevData.map(p =>
+          p._id === postId
+            ? { ...p, isLiked: true, likesCount: p.likesCount + 1 }
+            : p
+        ));
+      }
+    } catch (error) {
+      console.error("Error handling like:", error);
+    }
+  };
+
   useEffect(() => {
     if (editingPostId) {
       const modal = document.getElementById("edit_post_modal");
@@ -56,7 +83,7 @@ export default function Home() {
       }
     }
   }, [editingPostId]);
-  
+
 
   const handleEditSuccess = () => {
     fetchPosts();
@@ -116,9 +143,15 @@ export default function Home() {
                   </div>
                 )}
                 <div className="flex justify-between gap-4 mt-3">
-                  <button className="text-gray-500 hover:text-primary">
-                    <LikeIcon />
-                  </button>
+                  <div className="flex gap-2">
+                    <button
+                      onClick={(e) => handleLike(e, post._id)}
+                      className={`text-gray-500 hover:text-pink-700 ${post.isLiked ? 'text-pink-600' : ''}`}
+                    >
+                      {post.isLiked ? <FilledLikeIcon /> : <LikeIcon />}
+                    </button>
+                    <p className="text-sm text-white/50">{post.likesCount}</p>
+                  </div>
                   {isAuthenticated && post.userId?._id === user?._id && (
                     <div className="flex gap-2">
                       <button onClick={(e) => {
