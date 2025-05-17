@@ -20,7 +20,7 @@ export default function MainLayout() {
                     <Sidebar onPostAdded={handlePostAdded} />
                 </div>
                 <div className="h-full border border-gray-800 border-t-0">
-                    <div className="w-11/12 m-auto flex py-3 h-full flex-col">
+                    <div className="w-full m-auto flex py-3 h-full flex-col">
                         <Outlet />
                     </div>
                 </div>

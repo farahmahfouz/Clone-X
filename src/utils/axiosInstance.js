@@ -1,12 +1,12 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const BASE_URL = "https://clone-x-by-farah.glitch.me";
-// const LOCAL_URL = "http://localhost:8000";
+// const BASE_URL = "https://clone-x-by-farah.glitch.me";
+const LOCAL_URL = "http://localhost:8000";
 
 const axiosInstance = axios.create({
-  // baseURL: LOCAL_URL,
-  baseURL: BASE_URL,
+  baseURL: LOCAL_URL,
+  // baseURL: BASE_URL,
   withCredentials: true, // Important for handling cookies
 });
 
@@ -47,10 +47,10 @@ axiosInstance.interceptors.response.use(
         // Retry the original request
         return axiosInstance(originalRequest);
       } catch (refreshError) {
-        // If refresh token fails, redirect to login
+        console.log(refreshError)
         Cookies.remove("jwt");
-        window.location.href = "/login";
-        return Promise.reject(refreshError);
+        // // window.location.href = "/";
+        // return Promise.reject(refreshError);
       }
     }
 

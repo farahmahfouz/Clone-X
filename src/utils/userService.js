@@ -6,8 +6,8 @@ export const login = async (credentials) => {
 };
 
 export const signup = async (userData) => {
-  const response = await axiosInstance.post("/users/signup", userData);
-  return response.data;
+    const response = await axiosInstance.post("/users/signup", userData);
+    return response.data;
 };
 
 export const logout = async () => {
@@ -27,7 +27,10 @@ export const updateProfile = async (userData) => {
 };
 
 export const updatePassword = async (passwordData) => {
-  const response = await axiosInstance.patch("/users/updateMyPassword", passwordData);
+  const response = await axiosInstance.patch(
+    "/users/updateMyPassword",
+    passwordData
+  );
   return response.data;
 };
 
@@ -38,7 +41,9 @@ export const forgotPassword = async (email) => {
 };
 
 export const resetPassword = async (token, password) => {
-  const response = await axiosInstance.patch(`/users/resetPassword/${token}`, { password });
+  const response = await axiosInstance.patch(`/users/resetPassword/${token}`, {
+    password,
+  });
   return response.data;
 };
 
@@ -61,4 +66,4 @@ export const updateUser = async (id, userData) => {
 export const deleteUser = async (id) => {
   const response = await axiosInstance.delete(`/users/${id}`);
   return response.data;
-}; 
+};

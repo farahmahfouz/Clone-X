@@ -125,7 +125,7 @@ export default function Home() {
       <div className="w-full m-auto flex h-full flex-col" >
         {data.map((post) => (
           <div key={post._id} className="border-b border-gray-800 py-4 cursor-pointer" onClick={() => handlePostClick(post._id)}>
-            <div className="flex items-start gap-3">
+            <div className="flex items-start gap-3 px-5">
               <img
                 src={post.userId?.image || "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"}
                 alt="avatar"

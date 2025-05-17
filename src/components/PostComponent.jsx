@@ -59,19 +59,18 @@ export default function PostComponent({ onSuccess }) {
     };
 
     return (
-        <div className="w-full bg-black text-white p-4">
-            <div className="flex mb-2">
-
+        <div className="w-full bg-black text-whitex">
+            <div className="flex mb-2 px-4">
                 <div className="flex-grow">
                     <div className="flex items-center mb-2">
-                        <div className="w-12 h-12 rounded-full overflow-hidden bg-gray-700 mr-3">
+                        <div className="w-12 h-12 rounded-full overflow-hidden bg-gray-800 mr-3">
                             {/* Profile image placeholder */}
                             <div className="w-full h-full flex items-center justify-center">
                                 <span className="text-gray-400">👤</span>
                             </div>
                         </div>
-                        <div className="border border-gray-600 rounded-full px-4 py-1 text-sm">
-                            <div className="flex items-center text-primary">
+                        <div className="border border-gray-800 rounded-full  py-1 text-sm">
+                            <div className="flex items-center text-primary px-4">
                                 <span>Everyone</span>
                                 <span className="ml-1">▾</span>
                             </div>

@@ -66,8 +66,9 @@ export default function Signin() {
         setErrorMessage("No token received from server.");
       }
     } catch (err) {
+      console.log(err);
       setErrorMessage(
-        err.response?.data?.message || "Login failed. Please try again."
+        err.response?.data?.error?.message || "Invalid email or password. Please try again."
       );
     }
   };

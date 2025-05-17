@@ -11,6 +11,8 @@ export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -37,11 +39,12 @@ export const AuthProvider = ({ children }) => {
 
     checkAuth();
   }, [token]);
-  
+
   const login = (jwtToken) => {
     setToken(jwtToken);
     Cookies.set("jwt", jwtToken);
     setIsAuthenticated(true);
+    setError(""); 
   };
 
   const logout = () => {
@@ -53,17 +56,19 @@ export const AuthProvider = ({ children }) => {
 
   if (loading) {
     return <div className="bg-black min-h-screen flex justify-center items-center">
-      <LogoX width={300} height={300}/>
+      <LogoX width={300} height={300} />
     </div>;
   }
 
   return (
-    <AuthContext.Provider value={{ 
-      token, 
+    <AuthContext.Provider value={{
+      token,
       user,
-      isAuthenticated, 
-      login, 
-      logout 
+      isAuthenticated,
+      login,
+      logout,
+      error,
+      setError
     }}>
       {children}
     </AuthContext.Provider>
@@ -71,5 +76,5 @@ export const AuthProvider = ({ children }) => {
 };
 
 AuthProvider.propTypes = {
-    children: PropTypes.node.isRequired,
+  children: PropTypes.node.isRequired,
 }
