@@ -21,8 +21,8 @@ export default function AddPost({ onClose, onSuccess }) {
       setLoading(true);
       setError(null);
       await createPost({ content });
-      onSuccess?.();
-      onClose?.();
+      if (onSuccess) onSuccess();
+      if (onClose) onClose();
     } catch (error) {
       console.error("Error adding post:", error);
       setError(error.message || "Failed to add post");

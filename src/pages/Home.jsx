@@ -32,6 +32,17 @@ export default function Home() {
     fetchPosts();
   }, [token]);
 
+  useEffect(() => {
+    const handlePostAdded = () => {
+      fetchPosts();
+    };
+
+    window.addEventListener('postAdded', handlePostAdded);
+    return () => {
+      window.removeEventListener('postAdded', handlePostAdded);
+    };
+  }, []);
+
   const handleDeletePost = async (id) => {
     try {
       await deletePostService(id);
@@ -88,7 +99,7 @@ export default function Home() {
   const handleEditSuccess = () => {
     fetchPosts();
   };
-
+  
   if (loading)
     return (
       <div className="bg-black h-screen flex justify-center items-center">
@@ -100,7 +111,7 @@ export default function Home() {
 
   return (
     <>
-      <PostComponent />
+      <PostComponent onSuccess={fetchPosts} />
       {editingPostId && (
         <EditPost
           postId={editingPostId}
@@ -113,7 +124,7 @@ export default function Home() {
       )}
       <div className="w-full m-auto flex h-full flex-col" >
         {data.map((post) => (
-          <div key={post._id} className="border-b border-gray-800 p-4 cursor-pointer" onClick={() => handlePostClick(post._id)}>
+          <div key={post._id} className="border-b border-gray-800 py-4 cursor-pointer" onClick={() => handlePostClick(post._id)}>
             <div className="flex items-start gap-3">
               <img
                 src={post.userId?.image || "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"}
@@ -122,14 +133,13 @@ export default function Home() {
               />
               <div className="flex-1">
                 <div className="flex items-center gap-2">
-                  <span className="font-bold text-white">{post.userId?.name}</span>
-                  <span className="text-gray-500">{post.userId?.email}</span>
+                  <span className="font-bold text-white capitalize">{post.userId?.name}</span>
                   <span className="text-sm font-normal text-white/40">· {new Date(post.createdAt).toLocaleDateString("en-US", {
                     month: "short",
                     day: "numeric",
                   })}</span>
                 </div>
-                <p className="text-white mt-2">{post.content}</p>
+                <p className="text-white font-thin mt-2">{post.content}</p>
                 {post.images && post.images.length > 0 && (
                   <div className="mt-3 grid gap-2">
                     {post.images.map((image, index) => (

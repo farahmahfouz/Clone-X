@@ -57,7 +57,7 @@ export default function Signin() {
         password: formData.password,
       });
       
-      const token = response?.token || response?.data?.token || response?.data?.accessToken;
+      const token =  response?.data?.accessToken;
 
       if (token) {
         login(token);

@@ -1,13 +1,14 @@
 import { useState, useRef } from 'react';
+import PropTypes from 'prop-types';
 import { Image, List, Smile, Calendar, MapPin } from 'lucide-react';
 import { createPost } from '../utils/postService';
 
-export default function PostComponent() {
+export default function PostComponent({ onSuccess }) {
     const [postText, setPostText] = useState('');
     const [selectedImage, setSelectedImage] = useState(null);
     const [imagePreview, setImagePreview] = useState(null);
     const fileInputRef = useRef(null);
-    
+
 
     const handleImageClick = () => {
         fileInputRef.current.click();
@@ -35,12 +36,18 @@ export default function PostComponent() {
                 formData.append('images', selectedImage);
             }
 
-            await createPost(formData);
-            
+            await createPost(formData).then((newPost) => {
+                if (onSuccess) {
+                    onSuccess(newPost);
+                }
+            });
+
             // Reset form
             setPostText('');
             setSelectedImage(null);
             setImagePreview(null);
+
+
         } catch (error) {
             console.error('Error creating post:', error);
         }
@@ -143,3 +150,7 @@ export default function PostComponent() {
         </div>
     );
 }
+
+PostComponent.propTypes = {
+    onSuccess: PropTypes.func
+};

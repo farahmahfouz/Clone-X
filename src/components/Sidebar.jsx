@@ -10,13 +10,17 @@ import ProfileIcon from "../icons/ProfileIcon";
 import GrokIcon from "../icons/GrokIcon";
 import PremuimIcon from "../icons/PremuimIcon";
 import UserMenu from "./UserMenu";
+import PropTypes from 'prop-types';
 import AddPost from "./AddPost";
 
-export default function Sidebar() {
+export default function Sidebar({ onPostAdded }) {
   const [showAddPost, setShowAddPost] = useState(false);
 
   const handleAddPostSuccess = () => {
-    // You can add any refresh logic here if needed
+    setShowAddPost(false);
+    if (onPostAdded) {
+      onPostAdded();
+    }
   };
 
   return (
@@ -30,7 +34,7 @@ export default function Sidebar() {
       />
 
       <div className="h-14 md:h-full">
-        <ul className="menu fixed top md:p-4 sm:w-40 md:w-[420px] flex content-center h-full text-2xl text-base-200">
+        <ul className="menu fixed top md:p-4 sm:w-40 md:w-[420px] flex content-end h-full text-2xl text-base-200">
           <li>
             <img src="/logo.png" alt="logo" className="w-24 h-15" />
           </li>
@@ -84,3 +88,7 @@ export default function Sidebar() {
     </div>
   );
 }
+
+Sidebar.propTypes = {
+  onPostAdded: PropTypes.func
+};
