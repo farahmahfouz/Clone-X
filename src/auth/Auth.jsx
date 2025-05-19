@@ -13,13 +13,11 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-
   useEffect(() => {
     const checkAuth = async () => {
       try {
         if (token) {
           const userData = await getCurrentUser();
-          // console.log("User data received:", userData);
           setUser(userData);
           setIsAuthenticated(true);
         } else {

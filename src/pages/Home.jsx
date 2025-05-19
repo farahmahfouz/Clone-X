@@ -129,7 +129,7 @@ export default function Home() {
               <img
                 src={post.userId?.image || "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"}
                 alt="avatar"
-                className="w-12 h-12 rounded-full"
+                className="w-12 h-12 rounded-full object-cover"
               />
               <div className="flex-1">
                 <div className="flex items-center gap-2">

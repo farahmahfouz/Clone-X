@@ -13,7 +13,7 @@ const axiosInstance = axios.create({
 // Request interceptor
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = Cookies.get("jwt"); // Using jwt as the cookie name
+    const token = Cookies.get("jwt"); 
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -38,19 +38,19 @@ axiosInstance.interceptors.response.use(
 
       try {
         // Try to refresh the token
-        const response = await axiosInstance.get("/users/refresh");
+        const response = await axiosInstance.post("/users/refresh");
         const newAccessToken = response.data.data.accessToken;
-
+        Cookies.set("jwt", newAccessToken);
+        
         // Update the original request with new token
         originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
 
         // Retry the original request
         return axiosInstance(originalRequest);
       } catch (refreshError) {
-        console.log(refreshError)
+        console.log(refreshError);
         Cookies.remove("jwt");
-        // // window.location.href = "/";
-        // return Promise.reject(refreshError);
+        return Promise.reject(refreshError);
       }
     }
 
