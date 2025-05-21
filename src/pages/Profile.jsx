@@ -53,7 +53,7 @@ export default function Porfile() {
             <div key={r._id} className="flex border-b border-gray-700 flex-col cursor-pointer pb-9" onClick={()=> handlePostClick(r._id)}>
               <div className="flex gap-3 p-3">
                 <img
-                  className="w-[60px] h-[60px] rounded-full"
+                  className="w-[60px] h-[60px] rounded-full object-cover"
                   src={r.userId?.image}
                   alt="image"
                 />

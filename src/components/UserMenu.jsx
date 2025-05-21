@@ -21,27 +21,27 @@ export default function UserMenu() {
     return (
         <div className="relative p-0 rounded-full hover:bg-zinc-900 transition-colors" ref={menuRef}>
             <div>
-                
-            <img
-                src={user?.image || '/default.jpg' + (user?.email || "U")}
-                alt="avatar"
-                className="w-10 h-10 rounded-full object-cover border border-gray-700"
+
+                <img
+                    src={user?.image || '/default.jpg' + (user?.email || "U")}
+                    alt="avatar"
+                    className="w-10 h-10 rounded-full object-cover border border-gray-700"
                 />
-                </div>
+            </div>
 
             <div className="flex flex-col">
                 <div className="flex justify-between">
 
-                <p className="text-base text-white flex items-center max-w-[120px] truncate mt-2 capitalize">{user?.name || "User"}</p>
-                <button
-                    className="mx-4  rounded-full focus:outline-none "
-                    onClick={() => setOpen((v) => !v)}
-                    aria-label="Open menu"
+                    <p className="hidden md:flex text-base text-white  items-center max-w-[120px] truncate mt-2 capitalize">{user?.name || "User"}</p>
+                    <button
+                        className="mx-4  rounded-full focus:outline-none "
+                        onClick={() => setOpen((v) => !v)}
+                        aria-label="Open menu"
                     >
-                    <span className="text-lg text-white">&#8230;</span>
-                </button>
-                    </div>
-                <p className="text-sm text-white/50 font-thin mb-2 max-w-[120px] truncate">{user?.email || "User"}</p>
+                        <span className="text-lg text-white">&#8230;</span>
+                    </button>
+                </div>
+                <p className="hidden md:block text-sm text-white/50 font-thin mb-2 max-w-[120px] truncate">{user?.email || "User"}</p>
 
             </div>
 

@@ -63,7 +63,7 @@ export default function PostDetails() {
         <div className="flex items-center gap-3 mb-4">
           <img
             className="w-[50px] h-[50px] rounded-full object-cover"
-            src='/default.jpg'
+            src= {post.userId.image || '/default.jpg'}
             alt={post.userId.name}
           />
           <div>
@@ -99,7 +99,7 @@ export default function PostDetails() {
           <div className="flex gap-4 text-gray-400">
             <div className="flex items-center gap-1">
               <LikeIcon className="text-red-500" />
-              <span>{post.totalLikes || 0} Likes</span>
+              <span>{post.likesCount || 0} Likes</span>
             </div>
           </div>
         </div>
