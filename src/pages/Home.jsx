@@ -124,12 +124,13 @@ export default function Home() {
       )}
       <div className="w-full m-auto flex h-full flex-col" >
         {data.map((post) => (
-          <div key={post._id} className="border-b border-gray-800 py-4 cursor-pointer" onClick={() => handlePostClick(post._id)}>
+          <div key={post._id} className="border-b border-gray py-4 cursor-pointer" onClick={() => handlePostClick(post._id)}>
             <div className="flex items-start gap-3 px-5">
               <img
-                src={post.userId?.image || "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"}
-                alt="avatar"
+                src={post.userId?.image || 'default.jpg'}
+                alt={post.userId?.name}
                 className="w-12 h-12 rounded-full object-cover"
+                loading="lazy"
               />
               <div className="flex-1">
                 <div className="flex items-center gap-2">
@@ -148,6 +149,7 @@ export default function Home() {
                         src={image}
                         alt={`Post image ${index + 1}`}
                         className="w-full h-auto rounded-lg object-cover"
+                        loading="lazy"
                       />
                     ))}
                   </div>
@@ -160,7 +162,7 @@ export default function Home() {
                     >
                       {post.isLiked ? <FilledLikeIcon /> : <LikeIcon />}
                     </button>
-                    <p className="text-sm text-white/50">{post.likesCount}</p>
+                    <p className="text-sm text-white/50 content-center">{post.likesCount}</p>
                   </div>
                   {isAuthenticated && post.userId?._id === user?._id && (
                     <div className="flex gap-2">

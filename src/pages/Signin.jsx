@@ -10,8 +10,12 @@ export default function Signin() {
     password: "",
   });
   const [errors, setErrors] = useState({});
-  
+
   const { loading, error, login } = useContext(AuthContext);
+
+
+  const [loader, setLoader] = useState(false);
+
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -24,22 +28,22 @@ export default function Signin() {
     if (!password) return "Password is required";
     if (password.length < 8) return "Password must be at least 8 characters long";
     if (password.length > 16) return "Password must be at most 16 characters long";
-    
+
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,20}$/;
-    return passwordRegex.test(password) 
-      ? "" 
+    return passwordRegex.test(password)
+      ? ""
       : "Password must contain at least one uppercase letter, one lowercase letter, one number";
   };
 
   const validate = () => {
     const newErrors = {};
-    
+
     const emailError = validateEmail(formData.email);
     if (emailError) newErrors.email = emailError;
-    
+
     const passwordError = validatePassword(formData.password);
     if (passwordError) newErrors.password = passwordError;
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -47,29 +51,32 @@ export default function Signin() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage("");
-    
+
     const isValid = validate();
     if (!isValid) return;
 
     try {
+      setLoader(true);
       const response = await userLogin({
         email: formData.email,
         password: formData.password,
       });
-      
-      const token =  response?.data?.accessToken;
+
+      const token = response?.data?.accessToken;
 
       if (token) {
         login(token);
         navigate("/home", { replace: true });
       } else {
         setErrorMessage("No token received from server.");
+        setLoader(false);
       }
     } catch (err) {
       console.log(err);
       setErrorMessage(
         err.response?.data?.error?.message || "Invalid email or password. Please try again."
       );
+      setLoader(false);
     }
   };
 
@@ -133,12 +140,12 @@ export default function Signin() {
                 <button
                   type="submit"
                   className="btn w-full md:w-48 lg:w-80 rounded-full border-white/30 text-primary bg-transparent hover:bg-sky-950 font-bold"
-                  disabled={loading}
+                  disabled={loader}
                 >
-                  {loading ? (
+                  {loader ? (
                     <span className="flex items-center gap-2">
                       <span className="loading loading-spinner loading-sm"></span>
-                      Signing in...
+                      
                     </span>
                   ) : (
                     "Sign in"

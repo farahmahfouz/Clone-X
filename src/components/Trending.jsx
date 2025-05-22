@@ -11,17 +11,17 @@ export default function Trending() {
                 <input
                     type="text"
                     placeholder="Search"
-                    className="rounded-full bg-transparent text-white placeholder:text-white text-sm px-4 py-3 w-10/12 focus:outline-none focus:ring-2 focus:ring-sky-500 border border-neutral-700"
+                    className="rounded-full bg-transparent text-white placeholder:text-white text-sm px-4 py-3 w-10/12 focus:outline-none focus:ring-2 focus:ring-sky-500 border border-gray"
                 />
             </div>
 
-            <div className="m-auto text-white w-10/12 p-4 rounded-2xl shadow-md border border-gray-800 ">
+            <div className="m-auto text-white w-10/12 p-4 rounded-2xl shadow-md border border-gray ">
                 <h2 className="text-lg font-bold mb-2">Subscribe to Premium</h2>
                 <p className="text-sm mb-4">Subscribe to unlock new features and if eligible, receive a share of ads revenue.</p>
                 <button className="bg-sky-500 hover:bg-sky-600 text-white py-2 px-4 rounded-full">Subscribe</button>
             </div>
 
-            <div className="m-auto text-white w-10/12 p-4 rounded-2xl shadow-md border border-gray-800">
+            <div className="m-auto text-white w-10/12 p-4 rounded-2xl shadow-md border border-gray">
                 <h3 className="text-lg font-bold mb-4">Whats happening</h3>
                 <ul className="space-y-2">
                     <li>
@@ -46,7 +46,7 @@ export default function Trending() {
                 <button className="text-sky-500 hover:underline mt-4">Show more</button>
             </div>
 
-            <div className="text-white  w-10/12 p-4 rounded-2xl shadow-md border border-gray-800 m-auto">
+            <div className="text-white  w-10/12 p-4 rounded-2xl shadow-md border border-gray m-auto">
                 <h3 className="text-lg font-bold mb-4">Who to follow</h3>
                 <ul className="space-y-4">
                     {users.map((user, index) => (

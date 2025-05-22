@@ -9,7 +9,8 @@ export default {
       },
       colors: {
         primary: 'rgb(29 155 240)',
-        secondry: 'text-white/40'
+        secondry: 'text-white/40',
+        gray: '#2f3336'
       }
     },
   },

@@ -21,11 +21,10 @@ export default function UserMenu() {
     return (
         <div className="relative p-0 rounded-full hover:bg-zinc-900 transition-colors" ref={menuRef}>
             <div>
-
                 <img
                     src={user?.image || '/default.jpg' + (user?.email || "U")}
                     alt="avatar"
-                    className="w-10 h-10 rounded-full object-cover border border-gray-700"
+                    className="w-10 h-10 rounded-full object-cover border border-gray ms-2"
                 />
             </div>
 
@@ -46,7 +45,7 @@ export default function UserMenu() {
             </div>
 
             {open && (
-                <div className="absolute right-0 top-12 bg-black border border-gray-700 rounded-lg shadow-lg z-50 min-w-[120px]">
+                <div className="absolute right-0 top-12 bg-black border border-gray rounded-lg shadow-lg z-50 min-w-[120px]">
                     <button
                         onClick={logout}
                         className="block w-full text-base text-left px-4 py-2 text-white rounded-b-lg"

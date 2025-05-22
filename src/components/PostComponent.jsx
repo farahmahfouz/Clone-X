@@ -69,7 +69,7 @@ export default function PostComponent({ onSuccess }) {
                                 <span className="text-gray-400">👤</span>
                             </div>
                         </div>
-                        <div className="border border-gray-800 rounded-full  py-1 text-sm">
+                        <div className="border border-gray rounded-full  py-1 text-sm">
                             <div className="flex items-center text-primary px-4">
                                 <span>Everyone</span>
                                 <span className="ml-1">▾</span>
@@ -103,7 +103,7 @@ export default function PostComponent({ onSuccess }) {
 
                     <div className="text-sm text-blue-400 mt-2 mb-4">Everyone can reply</div>
 
-                    <div className="border-t border-gray-700 pt-3 flex justify-between items-center">
+                    <div className="border-t border-gray pt-3 flex justify-between items-center">
                         <div className="flex gap-3">
                             {/* Image upload button */}
                             <button

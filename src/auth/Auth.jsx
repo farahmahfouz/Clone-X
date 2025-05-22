@@ -66,7 +66,7 @@ export const AuthProvider = ({ children }) => {
       login,
       logout,
       error,
-      setError
+      setError,
     }}>
       {children}
     </AuthContext.Provider>

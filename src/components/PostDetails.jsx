@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { getPostById } from '../utils/postService';
 import LikeIcon from '../icons/LikeIcon';
 import ArrowLeft from '../icons/ArrowLeft';
+import FilledLikeIcon from '../icons/FilledLikeIcon';
 
 export default function PostDetails() {
   const [post, setPost] = useState(null);
@@ -25,7 +26,7 @@ export default function PostDetails() {
     fetchPostDetails();
   }, [id]);
 
-  
+
   if (loading)
     return (
       <div className="bg-black h-screen flex justify-center items-center">
@@ -63,8 +64,9 @@ export default function PostDetails() {
         <div className="flex items-center gap-3 mb-4">
           <img
             className="w-[50px] h-[50px] rounded-full object-cover"
-            src= {post.userId.image || '/default.jpg'}
-            alt={post.userId.name}
+            src={post?.userId?.image || '/default.jpg'}
+            alt={post?.userId?.name}
+            loading='lazy'
           />
           <div>
             <p className="text-md font-semibold capitalize">{post.userId.name}</p>
@@ -95,10 +97,12 @@ export default function PostDetails() {
         </div>
 
         {/* Post Stats */}
-        <div className="border-t border-gray-700 pt-4">
+        <div className="border-t border-gray pt-4">
           <div className="flex gap-4 text-gray-400">
-            <div className="flex items-center gap-1">
-              <LikeIcon className="text-red-500" />
+            <div className="flex items-center gap-1 ">
+              <p className={`text-gray-500 hover:text-pink-700 ${post.isLiked ? 'text-pink-600' : ''}`}>
+                {post.isLiked ? <FilledLikeIcon /> : <LikeIcon />}
+              </p>
               <span>{post.likesCount || 0} Likes</span>
             </div>
           </div>

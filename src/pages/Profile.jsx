@@ -50,7 +50,7 @@ export default function Porfile() {
       <div className="w-full h-full">
         <div className="w-11/12 m-auto flex p-3 h-full flex-col">
           {data.map((r) => (
-            <div key={r._id} className="flex border-b border-gray-700 flex-col cursor-pointer pb-9" onClick={()=> handlePostClick(r._id)}>
+            <div key={r._id} className="flex border-b border-gray flex-col cursor-pointer pb-9" onClick={()=> handlePostClick(r._id)}>
               <div className="flex gap-3 p-3">
                 <img
                   className="w-[60px] h-[60px] rounded-full object-cover"

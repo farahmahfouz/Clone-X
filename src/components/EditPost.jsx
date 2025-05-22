@@ -6,6 +6,7 @@ import { updatePost, getPostById } from "../utils/postService";
 
 export default function EditPost({ postId, onClose, onSuccess }) {
   const [content, setContent] = useState("");
+  const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(false);
   const [initialLoading, setInitialLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -15,8 +16,13 @@ export default function EditPost({ postId, onClose, onSuccess }) {
     const fetchPost = async () => {
       try {
         setInitialLoading(true);
-        const post = await getPostById(postId);
-        setContent(post.content);
+        const response = await getPostById(postId);
+        if (response && response.post && response.post.content) {
+          setContent(response.post.content);
+          setPost(response.post);
+        } else {
+          setError("Could not load post content");
+        }
       } catch (error) {
         console.error("Error fetching post:", error);
         setError("Failed to load post");
@@ -39,7 +45,7 @@ export default function EditPost({ postId, onClose, onSuccess }) {
     try {
       setLoading(true);
       setError(null);
-      await updatePost(postId, {content});
+      await updatePost(postId, { content });
       onSuccess?.();
       onClose?.();
     } catch (error) {
@@ -65,9 +71,10 @@ export default function EditPost({ postId, onClose, onSuccess }) {
           <form onSubmit={editPost}>
             <div className="flex">
               <img
-                className="w-[60px] h-[60px] rounded-full"
-                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                alt="image"
+                className="w-14 h-12  rounded-full object-cover"
+                src={post?.userId?.image || 'default.jpg'}
+                alt={post?.userId?.name}
+                loading="lazy"
               />
               <textarea
                 value={content}
