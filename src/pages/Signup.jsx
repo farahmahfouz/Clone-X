@@ -27,7 +27,6 @@ export default function Signup() {
   };
 
   const validateEmail = (email) => {
-    if(email) return 'Email is already used!';
     if (!email) return "Email is required";
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email) ? "" : "Invalid email format";

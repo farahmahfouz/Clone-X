@@ -6,6 +6,7 @@ export default function UserMenu() {
     const [open, setOpen] = useState(false);
     const menuRef = useRef(null);
 
+
     useEffect(() => {
         function handleClickOutside(event) {
             if (menuRef.current && !menuRef.current.contains(event.target)) {
@@ -22,8 +23,8 @@ export default function UserMenu() {
         <div className="relative p-0 rounded-full hover:bg-zinc-900 transition-colors" ref={menuRef}>
             <div>
                 <img
-                    src={user?.image || '/default.jpg' + (user?.email || "U")}
-                    alt="avatar"
+                    src={user?.image || '/default.jpg'}
+                    alt={user?.name}
                     className="w-10 h-10 rounded-full object-cover border border-gray ms-2"
                 />
             </div>
@@ -40,7 +41,7 @@ export default function UserMenu() {
                         <span className="text-lg text-white">&#8230;</span>
                     </button>
                 </div>
-                <p className="hidden md:block text-sm text-white/50 font-thin mb-2 max-w-[120px] truncate">{user?.email || "User"}</p>
+                <p className="hidden md:block text-sm text-white/50 font-thin mb-2 max-w-[120px] truncate">@{user?.email?.split('@')[0] || "User"}</p>
 
             </div>
 

@@ -99,7 +99,7 @@ export default function Home() {
   const handleEditSuccess = () => {
     fetchPosts();
   };
-  
+
   if (loading)
     return (
       <div className="bg-black h-screen flex justify-center items-center">
@@ -134,8 +134,9 @@ export default function Home() {
               />
               <div className="flex-1">
                 <div className="flex items-center gap-2">
-                  <span className="font-bold text-white capitalize">{post.userId?.name}</span>
-                  <span className="text-sm font-normal text-white/40">· {new Date(post.createdAt).toLocaleDateString("en-US", {
+                  <span className="font-bold text-sm text-white capitalize">{post.userId?.name}</span>
+                  <span className="text-xs text-white/40">@{post?.userId?.email?.split('@')[0] || "User"}</span>
+                  <span className="text-xs font-normal text-white/40"> · {new Date(post.createdAt).toLocaleDateString("en-US", {
                     month: "short",
                     day: "numeric",
                   })}</span>
@@ -156,13 +157,24 @@ export default function Home() {
                 )}
                 <div className="flex justify-between gap-4 mt-3">
                   <div className="flex gap-2">
-                    <button
-                      onClick={(e) => handleLike(e, post._id)}
-                      className={`text-gray-500 hover:text-pink-700 ${post.isLiked ? 'text-pink-600' : ''}`}
-                    >
-                      {post.isLiked ? <FilledLikeIcon /> : <LikeIcon />}
+                    <button className="flex items-center gap-2 p-2 rounded-full hover:bg-blue-900/20 hover:text-blue-400 transition-colors group">
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                      </svg>
+                      <span className="text-sm">0</span>
                     </button>
-                    <p className="text-sm text-white/50 content-center">{post.likesCount}</p>
+
+                    <button className="flex items-center gap-2 p-2 rounded-full hover:bg-green-900/20 hover:text-green-400 transition-colors group">
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                      </svg>
+                      <span className="text-sm">0</span>
+                    </button>
+
+                    <button className={`flex items-center gap-2 p-2 rounded-full hover:bg-pink-900/20 hover:text-pink-600 ${post.isLiked ? 'text-pink-500' : ''} transition-colors group`} onClick={(e) => handleLike(e, post._id)}>
+                      {post.isLiked ? <FilledLikeIcon /> : <LikeIcon />}  
+                      <span className="text-sm">{post.likesCount}</span>
+                    </button>
                   </div>
                   {isAuthenticated && post.userId?._id === user?._id && (
                     <div className="flex gap-2">
