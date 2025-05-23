@@ -85,7 +85,7 @@ export default function UserPost({ posts, handleLike, deletePost }) {
                     <span className="text-sm">0</span>
                   </button>
 
-                  <button className={`flex items-center gap-1 sm:gap-2 p-1 sm:p-2 rounded-full hover:bg-pink-900/20 hover:text-pink-600 ${post.isLiked ? 'text-pink-500' : ''} transition-colors group`} onClick={(e) => handleLike(e, post._id)}>
+                  <button className={`flex items-center gap-1 sm:gap-2 p-1 sm:p-2 rounded-full hover:bg-pink-900/20 hover:text-pink-600 ${post.isLiked ? 'text-pink-500' : ''} transition-colors group`} onClick={(e) => handleLike(e, post._id, posts)}>
                     {post.isLiked ? <FilledLikeIcon className="w-4 h-4 sm:w-5 sm:h-5" /> : <LikeIcon className="w-4 h-4 sm:w-5 sm:h-5" />}  
                     <span className="text-xs sm:text-sm">{post.likesCount}</span>
                   </button>
