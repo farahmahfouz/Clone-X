@@ -50,7 +50,7 @@ export default function Logout() {
                 </button>
                 
                 <div className="relative w-full sm:w-80 md:w-96 lg:w-80 xl:w-96 my-2">
-                  <hr className="border-t border-gray-500" />
+                  <hr className="border-t border-gray" />
                 </div>
                 
                 <button

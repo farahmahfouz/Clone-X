@@ -32,7 +32,7 @@ export default function Sidebar({ onPostAdded }) {
   return (
     <>
       {/* Mobile Header */}
-      <div className="flex md:hidden justify-between items-center p-4 border-b border-gray-800">
+      <div className="flex md:hidden justify-between items-center p-4 ">
         <button onClick={toggleMobileMenu} className="focus:outline-none">
           <LogoX width={40} height={40} />
         </button>
@@ -54,13 +54,6 @@ export default function Sidebar({ onPostAdded }) {
         <div className="drawer-side z-20 ">
           <label htmlFor="sidebar-drawer" className="drawer-overlay" onClick={toggleMobileMenu}></label>
           <div className="menu p-4 w-80 min-h-full bg-black text-white">
-            {/* Mobile Close Button */}
-            {/* <div className="flex justify-between items-center mb-4 md:hidden">
-              <LogoX width={40} height={40} />
-              <button onClick={toggleMobileMenu} className="btn btn-sm btn-circle">
-                ✕
-              </button>
-            </div> */}
             
             <ul className="text-2xl text-base-200">
               <li className="hidden md:block">

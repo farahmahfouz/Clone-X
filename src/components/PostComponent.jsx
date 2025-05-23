@@ -59,11 +59,11 @@ export default function PostComponent({ onSuccess }) {
     };
 
     return (
-        <div className="w-full bg-black text-whitex">
+        <div className="w-full text-white">
             <div className="flex mb-2 px-4">
                 <div className="flex-grow">
                     <div className="flex items-center mb-2">
-                        <div className="w-12 h-12 rounded-full overflow-hidden bg-gray-800 mr-3">
+                        <div className="w-12 h-12 rounded-full overflow-hidden bg-gray mr-3">
                             {/* Profile image placeholder */}
                             <div className="w-full h-full flex items-center justify-center">
                                 <span className="text-gray-400">👤</span>
