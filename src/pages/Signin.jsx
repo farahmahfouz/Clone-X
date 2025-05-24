@@ -72,7 +72,6 @@ export default function Signin() {
         setLoader(false);
       }
     } catch (err) {
-      console.log(err);
       setErrorMessage(
         err.response?.data?.error?.message || "Invalid email or password. Please try again."
       );
@@ -104,7 +103,7 @@ export default function Signin() {
                 name="email"
                 type="email"
                 placeholder="Email"
-                className="input w-80 max-w-xs bg-transparent border-white/30 focus:border-primary"
+                className="input w-80 max-w-xs bg-black text-white  border-white/30 focus:border-primary"
                 disabled={loading}
               />
               {errors.email && (
@@ -118,7 +117,7 @@ export default function Signin() {
                 name="password"
                 type="password"
                 placeholder="Password"
-                className="input w-80 max-w-xs bg-transparent border-white/30 focus:border-primary"
+                className="input w-80 max-w-xs bg-black text-white border-white/30 focus:border-primary"
                 disabled={loading}
               />
               {errors.password && (

@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getPostById } from '../utils/postService';
-import LikeIcon from '../icons/LikeIcon';
 import ArrowLeft from '../icons/ArrowLeft';
-import FilledLikeIcon from '../icons/FilledLikeIcon';
+import CommentsPost from './CommentsPost';
+import CommentActions from './CommentsActions';
 
 export default function PostDetails() {
   const [post, setPost] = useState(null);
@@ -25,7 +25,6 @@ export default function PostDetails() {
     };
     fetchPostDetails();
   }, [id]);
-
 
   if (loading)
     return (
@@ -70,12 +69,9 @@ export default function PostDetails() {
           />
           <div>
             <p className="text-md font-semibold capitalize">{post.userId.name}</p>
-            <span className="text-sm text-white/40">
-              {new Date(post.createdAt).toLocaleDateString("en-US", {
-                month: "short",
-                day: "numeric",
-              })}
-            </span>
+            <div className='flex gap-2'>
+              <p className="text-xs font-thin text-white/40">@{post.userId.email.split('@')[0]}</p>
+            </div>
           </div>
         </div>
 
@@ -94,20 +90,20 @@ export default function PostDetails() {
               ))}
             </div>
           )}
+          <span className="text-xs font-thin text-white/40">
+            {new Date(post.createdAt).toLocaleString()}
+          </span>
         </div>
 
         {/* Post Stats */}
-        <div className="border-t border-gray pt-4">
-          <div className="flex gap-4 text-gray-400">
-            <div className="flex items-center gap-1 ">
-              <p className={`text-gray-500 hover:text-pink-700 ${post.isLiked ? 'text-pink-600' : ''}`}>
-                {post.isLiked ? <FilledLikeIcon /> : <LikeIcon />}
-              </p>
-              <span>{post.likesCount || 0} Likes</span>
+          <div className="text-gray">
+            <div className="flex justify-between gap-2 sm:gap-4">
+              <CommentActions post={post}/>
             </div>
-          </div>
-        </div>
+        {/* Comment Section */}
+        <CommentsPost postId={id} initialComments={post.comments} />
       </div>
     </div>
+    </div >
   );
 } 

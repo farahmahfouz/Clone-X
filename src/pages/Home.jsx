@@ -1,12 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../auth/Auth";
-import LikeIcon from "../icons/LikeIcon";
-import FilledLikeIcon from "../icons/FilledLikeIcon";
 import { getAllPosts, deletePost as deletePostService } from "../utils/postService";
 import PostComponent from "../components/PostComponent";
 import EditPost from "../components/EditPost";
 import { useHandleLike } from "../hooks/useHandleLike";
+import CommentActions from "../components/CommentsActions";
 
 
 export default function Home() {
@@ -76,6 +75,16 @@ export default function Home() {
   const handleEditSuccess = () => {
     fetchPosts();
   };
+  const formatTimeAgo = (dateString) => {
+    const now = new Date();
+    const date = new Date(dateString);
+    const diffInSeconds = Math.floor((now - date) / 1000);
+
+    if (diffInSeconds < 60) return `${diffInSeconds}s`;
+    if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)}m`;
+    if (diffInSeconds < 86400) return `${Math.floor(diffInSeconds / 3600)}h`;
+    return `${Math.floor(diffInSeconds / 86400)}d`;
+  };
 
   if (loading)
     return (
@@ -110,13 +119,43 @@ export default function Home() {
                 loading="lazy"
               />
               <div className="flex-1">
-                <div className="flex flex-wrap items-center gap-1 sm:gap-2">
-                  <span className="font-bold text-sm text-white capitalize">{post.userId?.name}</span>
-                  <span className="text-xs text-white/40">@{post?.userId?.email?.split('@')[0] || "User"}</span>
-                  <span className="text-xs font-normal text-white/40"> · {new Date(post.createdAt).toLocaleDateString("en-US", {
-                    month: "short",
-                    day: "numeric",
-                  })}</span>
+                <div className="flex justify-between">
+
+                  <div className="flex flex-wrap items-center gap-1 sm:gap-2">
+                    <span className="font-bold text-sm text-white capitalize">{post.userId?.name}</span>
+                    <span className="text-xs text-white/40">@{post?.userId?.email?.split('@')[0] || "User"}</span>
+                    <span className="text-xs font-normal text-white/40"> · {formatTimeAgo(post.createdAt)}</span>
+                  </div>
+                  {isAuthenticated && post.userId?._id === user?._id && (
+                    <div className="relative group">
+                      <button className="p-2 rounded-full text-white hover:text-white/30 hover:bg-gray/30 transition-colors">
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
+                        </svg>
+                      </button>
+                      <div className="absolute right-0 top-full mt-1 bg-black border border-gray-700 rounded-lg shadow-xl py-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10 min-w-[120px]">
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleEditPost(post._id)
+                          }}
+                          className="block w-full text-left px-4 py-2 text-sm text-white hover:bg-gray-800 transition-colors"
+                        >
+                          Edit
+                        </button>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleDeletePost(post._id)
+                          }}
+                          className="block w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-gray-800 transition-colors"
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </div>
+                  )}
+
                 </div>
                 <p className="text-white font-thin mt-2 text-sm sm:text-base break-words">{post.content}</p>
                 {post.images && post.images.length > 0 && (
@@ -132,43 +171,11 @@ export default function Home() {
                     ))}
                   </div>
                 )}
-                <div className="flex flex-wrap justify-between gap-2 sm:gap-4 mt-3">
-                  <div className="flex gap-1 sm:gap-2">
-                    <button className="flex items-center gap-1 sm:gap-2 p-1 sm:p-2 rounded-full hover:bg-blue-900/20 hover:text-blue-400 transition-colors group">
-                      <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                      </svg>
-                      <span className="text-xs sm:text-sm">0</span>
-                    </button>
-
-                    <button className="flex items-center gap-1 sm:gap-2 p-1 sm:p-2 rounded-full hover:bg-green-900/20 hover:text-green-400 transition-colors group">
-                      <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                      </svg>
-                      <span className="text-xs sm:text-sm">0</span>
-                    </button>
-
-                    <button className={`flex items-center gap-1 sm:gap-2 p-1 sm:p-2 rounded-full hover:bg-pink-900/20 hover:text-pink-600 ${post.isLiked ? 'text-pink-500' : ''} transition-colors group`} onClick={(e) => handleLike(e, post._id, data)}>
-                      {post.isLiked ? <FilledLikeIcon className="w-4 h-4 sm:w-5 sm:h-5" /> : <LikeIcon className="w-4 h-4 sm:w-5 sm:h-5" />}  
-                      <span className="text-xs sm:text-sm">{post.likesCount}</span>
-                    </button>
+                <div className="flex items-center justify-between w-full sm:gap-4 mt-3">
+                  <div className="flex items-center justify-between w-full sm:gap-2">
+                   <CommentActions post={post} handleLike={handleLike} posts={data}/>
                   </div>
-                  {isAuthenticated && post.userId?._id === user?._id && (
-                    <div className="flex gap-1 sm:gap-2">
-                      <button onClick={(e) => {
-                        e.stopPropagation();
-                        handleEditPost(post._id)
-                      }} className="btn btn-xs sm:btn-sm rounded-full bg-primary hover:bg-sky-600 text-white border-none w-16 sm:w-20">
-                        Edit
-                      </button>
-                      <button onClick={(e) => {
-                        e.stopPropagation();
-                        handleDeletePost(post._id)
-                      }} className="btn btn-xs sm:btn-sm rounded-full border-white text-primary bg-transparent hover:bg-sky-950 w-16 sm:w-20">
-                        Delete
-                      </button>
-                    </div>
-                  )}
+
                 </div>
               </div>
             </div>

@@ -7,6 +7,7 @@ export default function PostComponent({ onSuccess }) {
     const [postText, setPostText] = useState('');
     const [selectedImage, setSelectedImage] = useState(null);
     const [imagePreview, setImagePreview] = useState(null);
+    const [loading, setLoading] = useState(false);
     const fileInputRef = useRef(null);
 
 
@@ -29,6 +30,7 @@ export default function PostComponent({ onSuccess }) {
     };
 
     const handlePostSubmit = async () => {
+        setLoading(true)
         try {
             const formData = new FormData();
             formData.append('content', postText);
@@ -50,6 +52,8 @@ export default function PostComponent({ onSuccess }) {
 
         } catch (error) {
             console.error('Error creating post:', error);
+        } finally {
+            setLoading(false)
         }
     };
 
@@ -134,15 +138,24 @@ export default function PostComponent({ onSuccess }) {
                                 <MapPin size={20} />
                             </button>
                         </div>
-
+                        <div className='text-sm text-gray'>
+                        <span className={postText.length > 240 ? 'text-red-500' : postText.length > 200 ? 'text-yellow-500' : ''}>
+                            {280 - postText.length}
+                        </span>
                         <button
                             onClick={handlePostSubmit}
-                            disabled={!postText && !selectedImage}
-                            className={`px-4 py-2 rounded-full ${postText || selectedImage ? 'bg-white hover:bg-white-600' : 'bg-white bg-opacity-50 cursor-not-allowed'
+                            disabled={(!postText && !selectedImage) || loading}
+                            className={`px-4 py-2 mx-2 rounded-full ${postText || selectedImage ? 'bg-white hover:bg-white/30' : 'bg-white bg-opacity-50 cursor-not-allowed'
                                 } font-bold text-black`}
                         >
-                            Post
+
+                            {loading ? (
+                                <span className="loading loading-spinner loading-xs"></span>
+                            ) : (
+                                "Add"
+                            )}
                         </button>
+                        </div>
                     </div>
                 </div>
             </div>

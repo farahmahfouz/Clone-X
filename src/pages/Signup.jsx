@@ -81,7 +81,7 @@ export default function Signup() {
       document.getElementById('signin_modal').showModal();
     } catch (error) {
       setErrorMessage(
-        error.response?.data?.message || "Signup failed. Please try again."
+        error.response?.data?.error.message || "Signup failed. Please try again."
       );
     } finally {
       setLoading(false);

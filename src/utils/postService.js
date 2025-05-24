@@ -52,4 +52,25 @@ export const unlikePost = async (postId) => {
 export const getPostLikes = async (postId) => {
   const response = await axiosInstance.get(`/posts/${postId}/likes`);
   return response.data.data.likes;
+};
+
+// Comment operations
+export const createComment = async (postId, text) => {
+  const response = await axiosInstance.post(`/posts/${postId}/comments`, { text });
+  return response.data.data.comment;
+};
+
+export const getComments = async (postId) => {
+  const response = await axiosInstance.get(`/posts/${postId}/comments`);
+  return response.data.data.comments;
+};
+
+export const updateComment = async (postId, commentId, text) => {
+  const response = await axiosInstance.patch(`/posts/${postId}/comments/${commentId}`, { text });
+  return response.data.data.comment;
+};
+
+export const deleteComment = async (postId, commentId) => {
+  const response = await axiosInstance.delete(`/posts/${postId}/comments/${commentId}`);
+  return response.data;
 }; 
