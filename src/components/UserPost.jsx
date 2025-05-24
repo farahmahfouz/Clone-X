@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 import CommentActions from './CommentsActions';
 
@@ -9,12 +8,6 @@ export default function UserPost({ posts, handleLike, deletePost }) {
         <div className="text-center py-12">
           <h3 className="text-xl font-bold text-white mb-2">You haven&apos;t posted anything yet</h3>
           <p className="text-gray mb-6">When you post, it&apos;ll show up here.</p>
-          <Link
-            to="/create-post"
-            className="inline-block px-6 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors font-medium"
-          >
-            Create your first post
-          </Link>
         </div>
       ) : (
         posts.map((post) => (
@@ -26,28 +19,41 @@ export default function UserPost({ posts, handleLike, deletePost }) {
                 alt="avatar"
               />
               <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2 mb-1">
-                  <span className="font-bold text-white truncate capitalize">
-                    {post.userId?.name}
-                  </span>
-                  <span className="text-white/40 text-sm">
-                    @{post.userId?.email?.split('@')[0]}
-                  </span>
-                  <span className="text-white/40 text-sm">·</span>
-                  <span className="text-white/40 text-xs">
-                    {new Date(post.createdAt).toLocaleDateString("en-US", {
-                      month: "short",
-                      day: "numeric",
-                    })}
-                  </span>
+                <div className="flex items-center justify-between gap-2 mb-1">
+                  <div className="flex items-center">
+                    <span className="font-bold text-white truncate capitalize">
+                      {post.userId?.name}
+                    </span>
+                    <span className="text-white/40 text-sm ml-1">
+                      @{post.userId?.email?.split('@')[0]}
+                    </span>
+                    <span className="text-white/40 text-sm mx-1">·</span>
+                    <span className="text-white/40 text-xs">
+                      {new Date(post.createdAt).toLocaleDateString("en-US", {
+                        month: "short",
+                        day: "numeric",
+                      })}
+                    </span>
+                  </div>
 
-                  {/* Dropdown menu */}
-                  <div className="ml-auto relative group">
-                    <button className="p-1 rounded-full hover:bg-gray-800 transition-colors opacity-0 group-hover:opacity-100">
-                      <svg className="w-4 h-4 text-gray" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 000 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
+                  <div className="relative group">
+                    <button className="p-2 rounded-full text-white hover:text-white/30 hover:bg-gray/30 transition-colors">
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
                       </svg>
                     </button>
+
+                    <div className="absolute right-0 top-full mt-1 bg-black border border-gray-700 rounded-lg shadow-xl py-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10 min-w-[120px]">
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          deletePost(post._id);
+                        }}
+                        className="block w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-gray-800 transition-colors"
+                      >
+                        Delete
+                      </button>
+                    </div>
                   </div>
                 </div>
 
@@ -68,28 +74,8 @@ export default function UserPost({ posts, handleLike, deletePost }) {
                   )}
                 </div>
 
-                {/* Action buttons */}
-                <div className="flex items-center justify-between max-w-md text-gray">
+                <div className="flex items-center justify-between max-w-md text-gray mt-3">
                   <CommentActions post={post} handleLike={handleLike} posts={posts} />
-                  <div className="flex gap-2">
-                    <Link
-                      to='#'
-                      className="p-2 rounded-full hover:bg-blue-900/20 hover:text-blue-400 transition-colors"
-                    >
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                      </svg>
-                    </Link>
-
-                    <button
-                      onClick={() => deletePost(post._id)}
-                      className="p-2 rounded-full hover:bg-red-900/20 hover:text-red-400 transition-colors"
-                    >
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                      </svg>
-                    </button>
-                  </div>
                 </div>
               </div>
             </div>

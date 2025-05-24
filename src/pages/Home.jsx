@@ -97,7 +97,7 @@ export default function Home() {
 
   return (
     <>
-      <PostComponent onSuccess={fetchPosts} />
+      <PostComponent onSuccess={fetchPosts} user={user} />
       {editingPostId && (
         <EditPost
           postId={editingPostId}
@@ -171,14 +171,11 @@ export default function Home() {
                     ))}
                   </div>
                 )}
-                <div className="flex items-center justify-between w-full sm:gap-4 mt-3">
-                  <div className="flex items-center justify-between w-full sm:gap-2">
-                   <CommentActions post={post} handleLike={handleLike} posts={data}/>
-                  </div>
-
-                </div>
               </div>
             </div>
+                  <div className="flex items-center justify-between w-full sm:gap-2 mt-2 px-7">
+                   <CommentActions post={post} handleLike={handleLike} posts={data}/>
+                  </div>
           </div>
         ))}
       </div>

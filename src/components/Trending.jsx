@@ -1,8 +1,8 @@
 export default function Trending() {
     const users = [
-        { name: 'Ahmed Hassan El Sharkawy', handle: '@sharkawiaahmed', verified: true, imgSrc: 'default.jpg' },
-        { name: 'رسائل', handle: '@iMessaage_', verified: true, imgSrc: 'default.jpg' },
-        { name: 'د. علي القره داغي', handle: '@Ali_AlQaradaghi', verified: true, imgSrc: 'default.jpg' },
+        { name: 'Ahmed Hassan El Sharkawy', handle: '@sharkawiaahmed', verified: true, imgSrc: '/default.jpg' },
+        { name: 'رسائل', handle: '@iMessaage_', verified: true, imgSrc: '/default.jpg' },
+        { name: 'د. علي القره داغي', handle: '@Ali_AlQaradaghi', verified: true, imgSrc: '/default.jpg' },
     ];
 
     return (
@@ -18,7 +18,7 @@ export default function Trending() {
             <div className="m-auto text-white w-10/12 p-4 rounded-2xl shadow-md border border-gray ">
                 <h2 className="text-lg font-bold mb-2">Subscribe to Premium</h2>
                 <p className="text-sm mb-4">Subscribe to unlock new features and if eligible, receive a share of ads revenue.</p>
-                <button className="bg-sky-500 hover:bg-sky-600 text-white py-2 px-4 rounded-full">Subscribe</button>
+                <button className="bg-primary hover:bg-sky-600 text-white py-2 px-4 rounded-full">Subscribe</button>
             </div>
 
             <div className="m-auto text-white w-10/12 p-4 rounded-2xl shadow-md border border-gray">
@@ -62,7 +62,7 @@ export default function Trending() {
                         </li>
                     ))}
                 </ul>
-                <button className="text-sky-500 hover:underline mt-4">Show more</button>
+                <button className="text-primary hover:underline mt-4">Show more</button>
             </div>
         </div>
     )

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Logout from "./pages/Logout";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
-import PostDetails from "./components/PostDetails";
+import PostDetails from "./pages/PostDetails";
 import ProtectedRoute from "./auth/ProtectedRoute";
 import MainLayout from "./components/MainLayout";
 

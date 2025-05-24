@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Image, List, Smile, Calendar, MapPin } from 'lucide-react';
 import { createPost } from '../utils/postService';
 
-export default function PostComponent({ onSuccess }) {
+export default function PostComponent({ onSuccess, user }) {
     const [postText, setPostText] = useState('');
     const [selectedImage, setSelectedImage] = useState(null);
     const [imagePreview, setImagePreview] = useState(null);
@@ -70,7 +70,7 @@ export default function PostComponent({ onSuccess }) {
                         <div className="w-12 h-12 rounded-full overflow-hidden bg-gray mr-3">
                             {/* Profile image placeholder */}
                             <div className="w-full h-full flex items-center justify-center">
-                                <span className="text-gray-400">👤</span>
+                            <img src={user.image || '/default.jpg'} alt={user.name} />
                             </div>
                         </div>
                         <div className="border border-gray rounded-full  py-1 text-sm">
@@ -164,5 +164,6 @@ export default function PostComponent({ onSuccess }) {
 }
 
 PostComponent.propTypes = {
-    onSuccess: PropTypes.func
+    onSuccess: PropTypes.func,
+    user: PropTypes.object
 };

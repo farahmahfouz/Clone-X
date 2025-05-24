@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getPostById } from '../utils/postService';
 import ArrowLeft from '../icons/ArrowLeft';
-import CommentsPost from './CommentsPost';
-import CommentActions from './CommentsActions';
+import CommentsPost from '../components/CommentsPost';
+import CommentActions from '../components/CommentsActions';
 
 export default function PostDetails() {
   const [post, setPost] = useState(null);
@@ -28,7 +28,7 @@ export default function PostDetails() {
 
   if (loading)
     return (
-      <div className="bg-black h-screen flex justify-center items-center">
+      <div className="bg-black min-h-svh flex justify-center items-center">
         <span className="loading loading-spinner loading-xl text-primary"></span>
       </div>
     );
@@ -50,7 +50,7 @@ export default function PostDetails() {
   }
 
   return (
-    <div className="relative text-white min-h-screen">
+    <div className="relative text-white">
       <div>
         <button
           onClick={() => window.history.back()}
@@ -76,7 +76,7 @@ export default function PostDetails() {
         </div>
 
         {/* Post Content */}
-        <div className="mb-4">
+        <div className="mb-2">
           <p className="text-lg text-white break-words">{post.content}</p>
           {post.images && post.images.length > 0 && (
             <div className="mt-3 grid gap-2">
@@ -85,7 +85,7 @@ export default function PostDetails() {
                   key={index}
                   src={image}
                   alt={`Post image ${index + 1}`}
-                  className="w-full h-auto rounded-lg object-cover"
+                  className="w-full h-full rounded-lg object-cover"
                 />
               ))}
             </div>
@@ -106,4 +106,4 @@ export default function PostDetails() {
     </div>
     </div >
   );
-} 
+}

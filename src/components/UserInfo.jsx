@@ -53,6 +53,14 @@ export default function UserInfo({ userData }) {
         </div>
     );
 };
+
+
 UserInfo.propTypes = {
-    userData: PropTypes.array.isRequired,
+    userData: PropTypes.shape({
+        name: PropTypes.string,
+        email: PropTypes.string,
+        bio: PropTypes.string,
+        location: PropTypes.string,
+        createdAt: PropTypes.string,
+    }).isRequired,
 };

@@ -62,13 +62,13 @@ export default function CommentsPost({ postId, initialComments }) {
   };
 
   return (
-    <div className="border-t border-gray">
+    <div className="border-t border-gray min-h-screen">
       {/* Comment Input Section */}
       <div className="p-4 border-b border-gray">
         <form onSubmit={handleSubmitComment} className="flex gap-3">
           <div className="flex-shrink-0">
             <img
-              src={user?.image || '/default.png'}
+              src={user?.image || '/default.jpg'}
               alt={user?.name || 'User'}
               className="w-10 h-10 rounded-full object-cover ring-2 ring-gray"
             />
@@ -136,7 +136,7 @@ export default function CommentsPost({ postId, initialComments }) {
             <div className="flex gap-3">
               <div className="flex-shrink-0">
                 <img
-                  src={comment.user.image}
+                  src={comment.user.image || '/default.jpg'}
                   alt={comment.user.name}
                   className="w-10 h-10 rounded-full object-cover"
                 />
@@ -197,7 +197,7 @@ export default function CommentsPost({ postId, initialComments }) {
 
                       {user && user._id === comment.user._id && (
                         <div className="relative group">
-                          <button className="p-2 rounded-full text-gray-500 hover:text-gray-300 hover:bg-gray-800 transition-colors">
+                          <button className="p-2 rounded-full text-gray hover:text-gray-300 hover:bg-gray-800 transition-colors">
                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
                             </svg>
@@ -228,7 +228,7 @@ export default function CommentsPost({ postId, initialComments }) {
       </div>
 
       {comments.length === 0 && (
-        <div className="p-8 text-center text-gray-500">
+        <div className="p-8 text-center text-gray">
           <p className="text-lg">No replies yet</p>
           <p className="text-sm mt-1">Be the first to reply!</p>
         </div>
